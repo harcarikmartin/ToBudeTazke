@@ -73,7 +73,6 @@ public class StonesServlet extends HttpServlet {
 				}
 			}
 		}
-
 		out.println("</table>");
 
 		out.println("<form method='get'>");
@@ -85,8 +84,6 @@ public class StonesServlet extends HttpServlet {
 		out.println("<a href='?command=down'>Down</a><br>");
 		out.println("<a href='?command=left'>Left</a><br>");
 		out.println("<a href='?command=right'>Right</a><br>");
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
