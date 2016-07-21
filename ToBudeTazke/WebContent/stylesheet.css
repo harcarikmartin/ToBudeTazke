@@ -6,4 +6,24 @@ h1 {
 
 body {
 	background-color: silver;
+	font-family: sans-serif;
+}
+
+img {
+	size: 15px;
+}
+
+table, tr, td {
+	color: black;
+	border-style: solid;
+}
+
+td {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	font-family: sans-serif;
+	color: black;
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 /**
  * Servlet implementation class StonesServlet
  */
@@ -26,7 +27,16 @@ public class StonesServlet extends HttpServlet {
 			field = new Field(4, 4);
 			session.setAttribute("field", field);
 		}
-
+		
+		try {
+			String newGame = (request.getParameter("newGame").toString());
+			if(newGame != null) {
+				field = new Field(4,4);
+				session.setAttribute("field", field);
+			}
+		} catch (Exception e){	
+		}
+		
 		try {
 			int value = Integer.parseInt(request.getParameter("value"));
 			field.move(value);
@@ -50,19 +60,23 @@ public class StonesServlet extends HttpServlet {
 				break;
 			}
 		}
-
-		if (field.isSolved()) {
-			out.println("<h1>Vyhral si</h1>");
-			// field = new Field(field.getRowCount() + 1, field.getColumnCount()
-			// + 1);
-			field = new Field(4, 4);
-			session.setAttribute("field", field);
-		}
-
+		
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
+		out.println("</head>");
+		out.println("<body>");
+		
+		out.println("<h1>Stones</h1><br>");
 		out.println("<table border='1'>");
 
+		out.println("<tr><td colspan=6><a href='?command=up'>^</a></td></tr>");
+		
 		for (int row = 0; row < field.getRowCount(); row++) {
 			out.println("<tr>");
+			if(row == 0) {
+				out.println("<td rowspan=4><a href='?command=left'><</a></td>");
+			}
 			for (int column = 0; column < field.getColumnCount(); column++) {
 				out.println("<td>");
 				int value = field.getValueAt(row, column);
@@ -72,18 +86,32 @@ public class StonesServlet extends HttpServlet {
 					out.printf("<a href='?value=%d'>%2d</a>", value, value);
 				}
 			}
+			if(row == 0) {
+				out.println("<td rowspan=4><a href='?command=right'>></a></td>");
+			}
 		}
+		out.println("<tr><td colspan=6><a href='?command=down'>v</a></td></tr>");
 		out.println("</table>");
 
+//		out.println("<form method='get'>");
+//		out.println("Value:<input type='text' name='value'><br>");
+//		out.println("<input type='submit'><br>");
+//		out.println("</form>");
+		
 		out.println("<form method='get'>");
-		out.println("Value:<input type='text' name='value'><br>");
-		out.println("<input type='submit'><br>");
-		out.println("</form>");
-
-		out.println("<a href='?command=up'>Up</a><br>");
-		out.println("<a href='?command=down'>Down</a><br>");
-		out.println("<a href='?command=left'>Left</a><br>");
-		out.println("<a href='?command=right'>Right</a><br>");
+		out.println("<input type='submit' name='newGame' value='New Game'><br>");
+		out.println("</form><br>");
+		
+		if (field.isSolved()) {
+			out.println("<h1>Vyhral si</h1>");
+			// field = new Field(field.getRowCount() + 1, field.getColumnCount()
+			// + 1);
+			field = new Field(4, 4);
+			session.setAttribute("field", field);
+		}
+		
+		out.println("</body>");
+		out.println("</html>");
 	}
 
 	/**

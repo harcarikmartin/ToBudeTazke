@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import sk.tsystems.gamestudio.game.minesweeper.core.Tile.State;
 
 @WebServlet("/minesweeper")
@@ -24,17 +23,17 @@ public class MinesweeperServlet extends HttpServlet {
 		response.setContentType("text/html");
 		
 		HttpSession session = request.getSession();
-		Field field = (Field) session.getAttribute("field");
+		Field field = (Field) session.getAttribute("minesfield");
 		if (field == null) {
 			field = new Field(ROWS, COLS, MINES);
-			session.setAttribute("field", field);
+			session.setAttribute("minesfield", field);
 		}
 		
 		try {
 			String newGame = (request.getParameter("newGame").toString());
 			if(newGame != null) {
 				field = new Field(ROWS, COLS, MINES);
-				session.setAttribute("field", field);
+				session.setAttribute("minesfield", field);
 			}
 		} catch (Exception e){	
 		}
@@ -53,6 +52,12 @@ public class MinesweeperServlet extends HttpServlet {
 		} catch (Exception e) {
 		}
 		
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
+		out.println("</head>");
+		out.println("<body>");
+		
 		out.println("<h1>Minesweeper</h1><br>");
 		out.println("<table border='1'>");
 
@@ -61,14 +66,42 @@ public class MinesweeperServlet extends HttpServlet {
 			for (int y = 0; y < field.getColumnCount(); y++) {
 				out.println("<td>");
 				if (field.getTile(x, y) instanceof Mine && field.getTile(x, y).getState().equals(State.OPEN)) {
-					out.print("&nbsp;X");
+					out.print("<img alt='mark' src='images/mine.jpg'>");
 				} else if (field.getTile(x, y) instanceof Clue && field.getTile(x, y).getState().equals(State.OPEN)) {
-					out.print("&nbsp;" + ((Clue) field.getTile(x, y)).getValue());
+					switch (((Clue) field.getTile(x, y)).getValue()) {
+					case 0:
+						out.print("<img alt='open' src='images/0.png'>");
+						break;
+					case 1:
+						out.print("<img alt='open' src='images/1.png'>");
+						break;
+					case 2:
+						out.print("<img alt='open' src='images/2.png'>");
+						break;
+					case 3:
+						out.print("<img alt='open' src='images/3.png'>");
+						break;
+					case 4:
+						out.print("<img alt='open' src='images/4.png'>");
+						break;
+					case 5:
+						out.print("<img alt='open' src='images/5.png'>");
+						break;
+
+					default:
+						out.print("&nbsp;" + ((Clue) field.getTile(x, y)).getValue());
+						break;
+					}
+					
 				} else if (field.getTile(x, y).getState().equals(State.MARKED)) {
-					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'>&nbsp;*</a>", x, y, 1);
+					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'><img alt='marked' src='images/mark.jpg'></a>", x, y, 1);
 				} else if (field.getTile(x, y).getState().equals(State.CLOSED)) {
-					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'>O</a>", x, y, 0);
-					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'>*</a>", x, y, 1);
+					out.println("<div>");
+					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'><img alt='open' src='images/openCommand.png'></a>", x, y, 0);
+					out.println("</div>");
+					out.println("<div>");
+					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'><img alt='mark' src='images/markCommand.png'></a>", x, y, 1);
+					out.println("</div>");
 				}
 				out.println("</td>");
 				
@@ -87,6 +120,8 @@ public class MinesweeperServlet extends HttpServlet {
 		if (field.getState().equals(GameState.FAILED)) {
 			out.println("<h1 class='finished'>Prehral si</h1>");
 		} 
+		out.println("</body>");
+		out.println("</html>");
 	}
 
 	/**
