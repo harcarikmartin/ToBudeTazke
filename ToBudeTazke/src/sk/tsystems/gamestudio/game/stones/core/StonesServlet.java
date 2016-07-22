@@ -35,12 +35,14 @@ public class StonesServlet extends HttpServlet {
 				session.setAttribute("field", field);
 			}
 		} catch (Exception e){	
+			System.out.println(e.getMessage());
 		}
 		
 		try {
 			int value = Integer.parseInt(request.getParameter("value"));
 			field.move(value);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
 		String command = request.getParameter("command");
@@ -70,15 +72,15 @@ public class StonesServlet extends HttpServlet {
 		out.println("<h1>Stones</h1><br>");
 		out.println("<table border='1'>");
 
-		out.println("<tr><td colspan=6><a href='?command=up'>^</a></td></tr>");
+		out.println("<tr><td colspan=6 class='stones'><a href='?command=up'>^</a></td></tr>");
 		
 		for (int row = 0; row < field.getRowCount(); row++) {
 			out.println("<tr>");
 			if(row == 0) {
-				out.println("<td rowspan=4><a href='?command=left'><</a></td>");
+				out.println("<td rowspan=4 class='stones'><a href='?command=left'><</a></td>");
 			}
 			for (int column = 0; column < field.getColumnCount(); column++) {
-				out.println("<td>");
+				out.println("<td class='stones'>");
 				int value = field.getValueAt(row, column);
 				if (value == Field.EMPTY_CELL) {
 					out.printf("  ");
@@ -87,10 +89,10 @@ public class StonesServlet extends HttpServlet {
 				}
 			}
 			if(row == 0) {
-				out.println("<td rowspan=4><a href='?command=right'>></a></td>");
+				out.println("<td rowspan=4 class='stones'><a href='?command=right'>></a></td>");
 			}
 		}
-		out.println("<tr><td colspan=6><a href='?command=down'>v</a></td></tr>");
+		out.println("<tr><td colspan=6 class='stones'><a href='?command=down'>v</a></td></tr>");
 		out.println("</table>");
 
 //		out.println("<form method='get'>");

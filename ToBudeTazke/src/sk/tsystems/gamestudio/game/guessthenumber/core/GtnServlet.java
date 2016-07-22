@@ -33,6 +33,7 @@ public class GtnServlet extends HttpServlet {
 				session.setAttribute("gtn", gtn);
 			}
 		} catch (Exception e){	
+			System.out.println(e.getMessage());
 		}
 		
 		out.println("<html>");
@@ -54,8 +55,8 @@ public class GtnServlet extends HttpServlet {
 			}
 			out.println("</tr>");
 		}
-		out.println("<table>");
-		out.println("</form><br>");
+		out.println("</table>");
+		out.println("</form>");
 		
 		try {
 			int guess = Integer.parseInt(request.getParameter("gtn"));
@@ -69,6 +70,7 @@ public class GtnServlet extends HttpServlet {
 				out.println("<p>" + guess + " is right. You win!</p><br>");
 			}
 		} catch (Exception e){	
+			System.out.println(e.getMessage());
 		}
 		
 		out.println("<form method='get'>");

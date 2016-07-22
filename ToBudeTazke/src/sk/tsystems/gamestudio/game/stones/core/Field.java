@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Field implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -51,18 +52,26 @@ public class Field implements Serializable {
 			values.add(i);
 		}
 		values.add(EMPTY_CELL);
-
-//		Collections.shuffle(values);
 		
 		int index = 0;
 		for (int row = 0; row < rowCount; row++) {
 			for (int column = 0; column < columnCount; column++) {
-				// tiles[row][column] = values.get(row * columnCount + column);
 				tiles[row][column] = values.get(index);
 				index++;
 			}
 		}
-		moveDown();
+		Random rn = new Random();
+		int next = 0;
+		for (int i = 0; i < 200; i++) {
+			next = rn.nextInt(8);
+			switch (next) {
+			case 1: moveDown();break;
+			case 2: moveUp();break;
+			case 3: moveLeft();break;
+			case 4: moveRight();break;
+			default:break;
+			}
+		}
 	}
 
 	private Position getPositionOf(int value) {

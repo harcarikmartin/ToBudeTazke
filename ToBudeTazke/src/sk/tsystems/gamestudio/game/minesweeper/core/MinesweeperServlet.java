@@ -36,6 +36,7 @@ public class MinesweeperServlet extends HttpServlet {
 				session.setAttribute("minesfield", field);
 			}
 		} catch (Exception e){	
+			System.out.println(e.getMessage());
 		}
 		
 		try {
@@ -50,6 +51,7 @@ public class MinesweeperServlet extends HttpServlet {
 			}
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		
 		out.println("<html>");
@@ -59,6 +61,18 @@ public class MinesweeperServlet extends HttpServlet {
 		out.println("<body>");
 		
 		out.println("<h1>Minesweeper</h1><br>");
+		
+		if (field.getState().equals(GameState.SOLVED)) {
+			out.println("<h1 class='finished'>You Win!</h1>");
+			field = new Field(ROWS, COLS, MINES);
+			session.setAttribute("minesfield", field);
+		} 
+		if (field.getState().equals(GameState.FAILED)) {
+			out.println("<h1 class='finished'>You Lost!</h1>");
+			field = new Field(ROWS, COLS, MINES);
+			session.setAttribute("minesfield", field);
+		} 
+			
 		out.println("<table border='1'>");
 
 		for (int x = 0; x < field.getRowCount(); x++) {
@@ -115,13 +129,6 @@ public class MinesweeperServlet extends HttpServlet {
 		out.println("<form method='get'>");
 		out.println("<input type='submit' name='newGame' value='New Game'><br>");
 		out.println("</form><br>");
-		
-		if (field.getState().equals(GameState.SOLVED)) {
-			out.println("<h1 class='finished'>Vyhral si</h1>");
-		} 
-		if (field.getState().equals(GameState.FAILED)) {
-			out.println("<h1 class='finished'>Prehral si</h1>");
-		} 
 		out.println("</body>");
 		out.println("</html>");
 	}
