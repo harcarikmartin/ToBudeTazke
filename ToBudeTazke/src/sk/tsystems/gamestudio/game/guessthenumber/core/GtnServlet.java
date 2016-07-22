@@ -10,11 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sk.tsystems.gamestudio.entity.jpa.Game;
+import sk.tsystems.gamestudio.service.jpa.GameJpa;
+import sk.tsystems.gamestudio.service.jpa.RatingJpa;
+import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
+
 @WebServlet("/gtn")
 public class GtnServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Game gm = new GameJpa().setPresentGame("minesweeper");
+		
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
@@ -43,6 +50,8 @@ public class GtnServlet extends HttpServlet {
 		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
 		out.println("</head>");
 		out.println("<body>");
+		out.println("<p>" + new ScoreJpa().findTenBestScoresForGame(gm).toString() + "</p>");
+		out.println("<p>" + new RatingJpa().findRatingsCountForGame(gm) + "</p>");
 		
 		out.println("<h1>Guess The Number</h1>");
 		
@@ -80,6 +89,8 @@ public class GtnServlet extends HttpServlet {
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
 		}
+		
+		
 		
 		out.println("<form method='get'>");
 		out.println("<input type='submit' name='newGame' value='New Game'><br>");
