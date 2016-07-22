@@ -62,22 +62,23 @@ public class StonesServlet extends HttpServlet {
 				break;
 			}
 		}
-		
+		out.println("<!DOCTYPE HTML>");
 		out.println("<html>");
 		out.println("<head>");
+		out.println("<title>Stones</title>");
 		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
 		out.println("</head>");
 		out.println("<body>");
 		
 		out.println("<h1>Stones</h1><br>");
-		out.println("<table border='1'>");
+		out.println("<table>");
 
 		out.println("<tr><td colspan=6 class='stones'><a href='?command=up'>^</a></td></tr>");
 		
 		for (int row = 0; row < field.getRowCount(); row++) {
 			out.println("<tr>");
 			if(row == 0) {
-				out.println("<td rowspan=4 class='stones'><a href='?command=left'><</a></td>");
+				out.println("<td rowspan=4 class='stones'><a href='?command=left'>&lt;</a></td>");
 			}
 			for (int column = 0; column < field.getColumnCount(); column++) {
 				out.println("<td class='stones'>");

@@ -54,8 +54,10 @@ public class MinesweeperServlet extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		
+		out.println("<!DOCTYPE HTML>");
 		out.println("<html>");
 		out.println("<head>");
+		out.println("<title>Minesweeper</title>");
 		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
 		out.println("</head>");
 		out.println("<body>");
@@ -73,7 +75,7 @@ public class MinesweeperServlet extends HttpServlet {
 			session.setAttribute("minesfield", field);
 		} 
 			
-		out.println("<table border='1'>");
+		out.println("<table>");
 
 		for (int x = 0; x < field.getRowCount(); x++) {
 			out.println("<tr>");

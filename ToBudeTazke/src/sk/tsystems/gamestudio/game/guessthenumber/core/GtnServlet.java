@@ -22,22 +22,24 @@ public class GtnServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		GuessTheNumber gtn = (GuessTheNumber) session.getAttribute("gtn");
 		if (gtn == null) {
-			gtn = new GuessTheNumber(100);
+			gtn = new GuessTheNumber(208);
 			session.setAttribute("gtn", gtn);
 		}
 		
 		try {
 			String newGame = (request.getParameter("newGame").toString());
 			if(newGame != null) {
-				gtn = new GuessTheNumber(100);
+				gtn = new GuessTheNumber(208);
 				session.setAttribute("gtn", gtn);
 			}
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
 		}
 		
+		out.println("<!DOCTYPE HTML>");
 		out.println("<html>");
 		out.println("<head>");
+		out.println("<title>Guess the Number</title>");
 		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
 		out.println("</head>");
 		out.println("<body>");
@@ -46,12 +48,18 @@ public class GtnServlet extends HttpServlet {
 		
 		out.println("<form method='get'>");
 		out.println("<table>");
-		for(int i = 0; i < gtn.getInterval()/10; i++) {
+		int mod = gtn.getInterval()%15;
+		for(int i = 0; i < gtn.getInterval()/15; i++) {
 			out.println("<tr>");
-			for(int j = 1; j <= 10; j++) {
-				out.println("<td>");
-				out.println("<input type='submit' name='gtn' value='"+ (i * 10 + j) +"'>");
-				out.println("</td>");
+			for(int j = 1; j <= 15; j++) {
+				out.println("<td><input type='submit' name='gtn' value='"+ (i * 15 + j) +"'></td>");
+			}
+			out.println("</tr>");
+		}
+		if(mod != 0) {
+			out.println("<tr>");
+			for(int i = 1; i <= mod; i++) {
+				out.println("<td><input type='submit' name='gtn' value='"+ (gtn.getInterval() - mod + i) +"'></td>");
 			}
 			out.println("</tr>");
 		}
