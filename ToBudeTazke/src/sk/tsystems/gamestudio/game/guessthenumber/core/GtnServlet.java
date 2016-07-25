@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sk.tsystems.gamestudio.entity.jpa.Score;
+import sk.tsystems.gamestudio.service.jpa.GameJpa;
+import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
+import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
+
 @WebServlet("/gtn")
 public class GtnServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +22,7 @@ public class GtnServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
+		int numberOfTries = 0;
 		GuessTheNumber gtn = (GuessTheNumber) session.getAttribute("gtn");
 		if (gtn == null) {
 			gtn = new GuessTheNumber(208);
@@ -47,12 +53,17 @@ public class GtnServlet extends HttpServlet {
 			int guess = Integer.parseInt(request.getParameter("gtn"));
 			if(guess > gtn.getNumberToGuess()) {
 				out.println("<p>" + guess + " is too high.</p><br>");
+				numberOfTries++;
 			}
 			if(guess < gtn.getNumberToGuess()) {
 				out.println("<p>" + guess + " is too low.</p><br>");
+				numberOfTries++;
 			}
 			if(guess == gtn.getNumberToGuess()) {
 				out.println("<p>" + guess + " is right. You win!</p><br>");
+				int score = 5 * gtn.getInterval() - numberOfTries;
+				new ScoreJpa().addScore(new Score(score, new PlayerJpa().setPresentPlayer("ja"), new GameJpa().setPresentGame("gtn")));
+				out.printf("<p>Your final score is %5d.</p>", score);
 				gtn = new GuessTheNumber(208);
 				session.setAttribute("gtn", gtn);
 			}

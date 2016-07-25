@@ -55,9 +55,7 @@ public class GamestudioServlet extends HttpServlet {
 		if ("login".equals(action) && !(request.getParameter("user").trim().isEmpty())) {
 			Player player = new PlayerJpa().setPresentPlayer(request.getParameter("user"));
 			request.setAttribute("logged", player.getPlayerName());
-			request.setAttribute("games", games);
-			request.setAttribute("avgRatings", avgRatings);
-			request.setAttribute("ratingsCounts", ratingsCounts);
+			
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
 			request.setAttribute("games", games);
@@ -101,6 +99,9 @@ public class GamestudioServlet extends HttpServlet {
 	
 	private void forwardToList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+		request.setAttribute("games", games);
+		request.setAttribute("avgRatings", avgRatings);
+		request.setAttribute("ratingsCounts", ratingsCounts);
+		request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
 	}
 }

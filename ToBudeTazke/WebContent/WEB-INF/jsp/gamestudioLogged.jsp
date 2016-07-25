@@ -9,7 +9,7 @@
 <title>Gamestudio</title>
 </head>
 <body>
-	<h1>Welcome to Gamestudio</h1>
+	<h1>Welcome to <a href="/ToBudeTazke/Gamestudio">Gamestudio</a></h1>
 	
 	
 	<p>Choose the game you want to play</p>

@@ -17,12 +17,12 @@ body {
 }
 
 img {
-	size: 15px;
+	size: 10px;
 }
 
 table, tr, td {
 	color: black;
-	border-style: solid;
+	border-style: none;
 }
 
 td {
