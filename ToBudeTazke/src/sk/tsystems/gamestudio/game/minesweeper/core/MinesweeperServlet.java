@@ -54,16 +54,6 @@ public class MinesweeperServlet extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		
-		out.println("<!DOCTYPE HTML>");
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title>Minesweeper</title>");
-		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
-		out.println("</head>");
-		out.println("<body>");
-		
-		out.println("<h1>Minesweeper</h1><br>");
-		
 		if (field.getState().equals(GameState.SOLVED)) {
 			out.println("<h1 class='finished'>You Win!</h1>");
 			field = new Field(ROWS, COLS, MINES);
@@ -127,12 +117,6 @@ public class MinesweeperServlet extends HttpServlet {
 		out.println("</table><br>");
 		
 		out.println("<div><p>Remaining mines: " + field.getRemainingMineCount() + "</p></div>");
-		
-		out.println("<form method='get'>");
-		out.println("<input type='submit' name='newGame' value='New Game'><br>");
-		out.println("</form><br>");
-		out.println("</body>");
-		out.println("</html>");
 	}
 
 	/**

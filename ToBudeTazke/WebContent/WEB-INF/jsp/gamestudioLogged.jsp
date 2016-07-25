@@ -11,20 +11,37 @@
 <body>
 	<h1>Welcome to Gamestudio</h1>
 	
-	<h3>Choose the game you want to play</h3>
-	<c:forEach items="${games}" var="game">
-		<a class="menuItem" href="?action=play&game=${game.gameName}">${game.gameName}</a>
-	</c:forEach>
 	
-	<jsp:include page="/${gamePlay}"></jsp:include>
+	<p>Choose the game you want to play</p>
+	
 	<table>
-		<thead><tr><th>Comment</th><th>Added by</th></tr></thead>
-		<c:forEach items="${comments}" var="comment">
-			<tr> <td>${comment.comment}</td><td>${comment.player.playerName}</td></tr>
-		</c:forEach>
-		
+		<tr>
+				<td>Game</td>
+			<c:forEach items="${games}" var="game">
+				<td><a class="menuItem"
+					href="?action=play&game=${game.gameName}">${game.gameName}</a></td>
+			</c:forEach>
+		</tr>
+		<tr>
+				<td>Average Rating</td>
+			<c:forEach items="${avgRatings}" var="avgRating">
+				<td>${avgRating}</td>
+			</c:forEach>
+		</tr>
+		<tr>
+				<td>Number of Ratings</td>
+			<c:forEach items="${ratingsCounts}" var="ratingsCount">
+				<td>${ratingsCount}</td>
+			</c:forEach>
+		</tr>
 	</table>
+	<br>
+	<jsp:include page="/${gamePlay}"></jsp:include>
+	<br>
+	<jsp:include page="comments.jsp" />
 	
+	<!--
 	<p>Logged as: ${logged}</p>
+	 -->
 </body>
 </html>

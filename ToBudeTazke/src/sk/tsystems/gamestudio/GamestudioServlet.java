@@ -1,8 +1,10 @@
 package sk.tsystems.gamestudio;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.SessionScoped;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,22 +14,35 @@ import javax.servlet.http.HttpSession;
 
 import sk.tsystems.gamestudio.entity.jpa.Game;
 import sk.tsystems.gamestudio.entity.jpa.Player;
-import sk.tsystems.gamestudio.game.minesweeper.core.Field;
 import sk.tsystems.gamestudio.service.jpa.CommentJpa;
 import sk.tsystems.gamestudio.service.jpa.GameJpa;
 import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
+import sk.tsystems.gamestudio.service.jpa.RatingJpa;
 
 @WebServlet("/Gamestudio")
 public class GamestudioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     List<Game> games = new GameJpa().getGames();
+    List<Double> avgRatings = new ArrayList<>();
+    List<Integer> ratingsCounts = new ArrayList<>();
+    
     
 	@Override
     public void init() throws ServletException {
-        super.init();
-       
-    }
-	
+//       new RatingJpa().addRating(new Rating(3, new PlayerJpa().setPresentPlayer("m"), new GameJpa().setPresentGame("minesweeper")));
+//       new RatingJpa().addRating(new Rating(4, new PlayerJpa().setPresentPlayer("m"), new GameJpa().setPresentGame("gtn")));
+//       new RatingJpa().addRating(new Rating(2, new PlayerJpa().setPresentPlayer("m"), new GameJpa().setPresentGame("stones")));
+//       new RatingJpa().addRating(new Rating(5, new PlayerJpa().setPresentPlayer("Janko"), new GameJpa().setPresentGame("minesweeper")));
+//       new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("Janko"), new GameJpa().setPresentGame("gtn")));
+//       new RatingJpa().addRating(new Rating(4, new PlayerJpa().setPresentPlayer("Janko"), new GameJpa().setPresentGame("stones")));
+		for (int i = 0; i < games.size(); i++) {
+			avgRatings.add(i, new RatingJpa().findAverageRatingForGame(new GameJpa().setPresentGame(games.get(i).getGameName())));
+		}
+		for (int i = 0; i < games.size(); i++) {
+			ratingsCounts.add(i,new RatingJpa().findRatingsCountForGame(new GameJpa().setPresentGame(games.get(i).getGameName())));
+		}
+       }
+	@SessionScoped
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
@@ -41,10 +56,15 @@ public class GamestudioServlet extends HttpServlet {
 			Player player = new PlayerJpa().setPresentPlayer(request.getParameter("user"));
 			request.setAttribute("logged", player.getPlayerName());
 			request.setAttribute("games", games);
+			request.setAttribute("avgRatings", avgRatings);
+			request.setAttribute("ratingsCounts", ratingsCounts);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
+			request.setAttribute("games", games);
 			String gameString = request.getParameter("game");
 			request.setAttribute("gamePlay", gameString);
+			request.setAttribute("avgRatings", avgRatings);
+			request.setAttribute("ratingsCounts", ratingsCounts);
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(gameString)));
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").include(request, response);
 		} else {

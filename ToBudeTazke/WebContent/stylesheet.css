@@ -4,6 +4,13 @@ h1 {
 	color: grey;
 }
 
+.menuItem {
+	font-variant: small-caps;
+	font-size: 1.5rem;
+	font-family: sans-serif;
+	color: blue;
+}
+
 body {
 	background-color: silver;
 	font-family: sans-serif;
