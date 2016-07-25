@@ -7,13 +7,20 @@ import sk.tsystems.gamestudio.entity.jpa.Player;
 
 public class PlayerJpa {
 	
+	public void addPlayer(Player player) {
+		JpaHelper.beginTransaction();
+		JpaHelper.getEntityManager().persist(player);
+		JpaHelper.commitTransaction();
+	}
+	
 	public Player setPresentPlayer(String playerName) {
 		int id = getId(playerName);
 		if(id > 0) {
 			EntityManager em = JpaHelper.getEntityManager();
 			return em.find(Player.class, id);
 		} else {
-			return new Player(playerName);
+			addPlayer(new Player(playerName));
+			return setPresentPlayer(playerName);
 		}
 	}
 

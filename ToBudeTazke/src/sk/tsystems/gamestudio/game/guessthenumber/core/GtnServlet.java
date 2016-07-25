@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sk.tsystems.gamestudio.entity.jpa.Game;
+import sk.tsystems.gamestudio.entity.jpa.Player;
+import sk.tsystems.gamestudio.entity.jpa.Rating;
 import sk.tsystems.gamestudio.service.jpa.GameJpa;
+import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
 import sk.tsystems.gamestudio.service.jpa.RatingJpa;
 import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 
@@ -21,7 +24,13 @@ public class GtnServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Game gm = new GameJpa().setPresentGame("minesweeper");
-		
+		Rating rt = new Rating();
+		Game gm1 = new GameJpa().setPresentGame("gtn");
+		Player pl = new PlayerJpa().setPresentPlayer("Janko");
+		rt.setRating(3);
+		rt.setGame(gm1);
+		rt.setPlayer(pl);
+		new RatingJpa().addRating(rt);
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
@@ -50,8 +59,12 @@ public class GtnServlet extends HttpServlet {
 		out.println("<link rel='stylesheet' href='stylesheet.css' type='text/css'>");
 		out.println("</head>");
 		out.println("<body>");
-		out.println("<p>" + new ScoreJpa().findTenBestScoresForGame(gm).toString() + "</p>");
+		out.println("<p>" + new ScoreJpa().findTenBestScoresForGame(gm) + "</p>");
 		out.println("<p>" + new RatingJpa().findRatingsCountForGame(gm) + "</p>");
+		out.println("<p>" + new ScoreJpa().findTenBestScoresForGame(gm1) + "</p>");
+		out.println("<p>" + new RatingJpa().findRatingsCountForGame(gm1) + "</p>");
+		
+		out.println("<p>" + new GameJpa().getGames() + "</p>");
 		
 		out.println("<h1>Guess The Number</h1>");
 		
@@ -95,6 +108,8 @@ public class GtnServlet extends HttpServlet {
 		out.println("<form method='get'>");
 		out.println("<input type='submit' name='newGame' value='New Game'><br>");
 		out.println("</form><br>");
+		
+		out.println("<a href='/ToBudeTazke/minesweeper'>minesweeper</a>");
 		
 		out.println("</body>");
 		out.println("</html>");

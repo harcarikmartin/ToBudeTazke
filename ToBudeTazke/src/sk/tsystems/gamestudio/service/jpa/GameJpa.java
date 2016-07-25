@@ -1,5 +1,8 @@
 package sk.tsystems.gamestudio.service.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -7,6 +10,11 @@ import sk.testJpa.jpa.JpaHelper;
 import sk.tsystems.gamestudio.entity.jpa.Game;
 
 public class GameJpa {
+	public void addGame(Game game) {
+		JpaHelper.beginTransaction();
+		JpaHelper.getEntityManager().persist(game);
+		JpaHelper.commitTransaction();
+	}
 	
 	public Game setPresentGame(String gameName) {
 		int id = getId(gameName);
@@ -14,8 +22,18 @@ public class GameJpa {
 			EntityManager em = JpaHelper.getEntityManager();
 			return em.find(Game.class, id);
 		} else {
-			return new Game(gameName);
+			addGame(new Game(gameName));
+			return setPresentGame(gameName);
 		}
+	}
+	
+	public List<Game> getGames() {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("select g from Game g");
+		List<Game> games = new ArrayList<>();
+		games = query.getResultList();
+		return games;
+	
 	}
 
 	private int getId(String gameName) {
