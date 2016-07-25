@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import sk.tsystems.gamestudio.entity.jpa.Game;
 import sk.tsystems.gamestudio.entity.jpa.Player;
+import sk.tsystems.gamestudio.game.minesweeper.core.Field;
 import sk.tsystems.gamestudio.service.jpa.CommentJpa;
 import sk.tsystems.gamestudio.service.jpa.GameJpa;
 import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
@@ -18,7 +21,7 @@ import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
 public class GamestudioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     List<Game> games = new GameJpa().getGames();
-	
+    
 	@Override
     public void init() throws ServletException {
         super.init();
@@ -27,15 +30,23 @@ public class GamestudioServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
+		Game game = (Game) session.getAttribute("Gamestudio");
+		if (game == null) {
+			game = new Game();
+			session.setAttribute("Gamestudio", game);
+		}
+		
 		if ("login".equals(action) && !(request.getParameter("user").trim().isEmpty())) {
 			Player player = new PlayerJpa().setPresentPlayer(request.getParameter("user"));
 			request.setAttribute("logged", player.getPlayerName());
 			request.setAttribute("games", games);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
-			request.setAttribute("gamePlay", request.getParameter("game"));
-			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
+			String gameString = request.getParameter("game");
+			request.setAttribute("gamePlay", gameString);
+			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(gameString)));
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").include(request, response);
 		} else {
             forwardToList(request, response);
 		}

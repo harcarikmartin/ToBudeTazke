@@ -110,13 +110,13 @@ public class MinesweeperServlet extends HttpServlet {
 					}
 					
 				} else if (field.getTile(x, y).getState().equals(State.MARKED)) {
-					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'><img alt='marked' src='images/mark.jpg'></a>", x, y, 1);
+					out.printf("<a href='?action=play&game=minesweeper&valuex=%d&valuey=%d&mark=%d'><img alt='marked' src='images/mark.jpg'></a>", x, y, 1);
 				} else if (field.getTile(x, y).getState().equals(State.CLOSED)) {
 					out.println("<div>");
-					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'><img alt='open' src='images/openCommand.png'></a>", x, y, 0);
+					out.printf("<a href='?action=play&game=minesweeper&valuex=%d&valuey=%d&mark=%d'><img alt='open' src='images/openCommand.png'></a>", x, y, 0);
 					out.println("</div>");
 					out.println("<div>");
-					out.printf("<a href='?valuex=%d&valuey=%d&mark=%d'><img alt='mark' src='images/markCommand.png'></a>", x, y, 1);
+					out.printf("<a href='?action=play&game=minesweeper&valuex=%d&valuey=%d&mark=%d'><img alt='mark' src='images/markCommand.png'></a>", x, y, 1);
 					out.println("</div>");
 				}
 				out.println("</td>");
