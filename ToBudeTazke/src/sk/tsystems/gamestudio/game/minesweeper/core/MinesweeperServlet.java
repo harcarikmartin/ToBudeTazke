@@ -19,9 +19,9 @@ import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 @WebServlet("/minesweeper")
 public class MinesweeperServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	long startMillis = System.currentTimeMillis();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		long startMillis = System.currentTimeMillis();
 		final int ROWS = 8;
 		final int COLS = 8;
 		final int MINES = 10;
@@ -61,8 +61,6 @@ public class MinesweeperServlet extends HttpServlet {
 		}
 		
 		if (field.getState().equals(GameState.SOLVED)) {
-			
-			
 			int time = (int)((System.currentTimeMillis() - startMillis) / 1000);
 			out.println("<h1 class='finished'>You Win!</h1>");
 			new ScoreJpa().addScore(new Score(time, new PlayerJpa().setPresentPlayer("ja"), new GameJpa().setPresentGame("minesweeper")));
