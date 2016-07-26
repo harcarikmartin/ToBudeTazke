@@ -1,0 +1,86 @@
+.col-sm-2, .col-md-2, .col-lg-1 {
+	text-align: right;
+}
+
+body {
+	font-family: sans-serif;
+	background-color: silver;
+}
+
+p {
+	padding-top: 0.7rem;
+	text-align: justify;
+}
+
+h2 {
+	padding-top: 1.5rem;
+	color: rgb(50,255,130);
+	font-weight: bold;
+}
+
+h3 {
+	color: rgb(100,255,180);
+	font-weight: bold;
+}
+
+h4 {
+	color: rgb(100,255,150);
+	font-weight: bold;
+}
+
+a {
+	color: rgb(50,255,130);
+	font-size: 1.5rem;
+}
+
+.stones {
+	text-align: center;
+}
+
+.gtn {
+	font-size: 1rem;
+}
+
+.hr {
+	padding-top: 1rem;
+}
+
+.header {
+	text-align: center;
+}
+
+.form {
+	text-align: left;
+}
+
+.footer, .foot {
+	color: grey;
+	font-weight: lighter;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.obrazky {
+	width: 31%;
+}
+
+.top {
+	vertical-align: top;
+}
+
+.tFoot {
+	font-size: 0.8rem;
+}
+
+thead {
+	font-weight: bold;
+}
+
+tbody {
+	text-align: left;
+}
+td {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+

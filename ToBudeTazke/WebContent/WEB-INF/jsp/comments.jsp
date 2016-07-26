@@ -6,6 +6,9 @@
 <table>
 	<thead>
 		<tr>
+			<th colspan="2">List of comments</th>
+		</tr>
+		<tr>
 			<th>Comment</th>
 			<th>Added by</th>
 		</tr>

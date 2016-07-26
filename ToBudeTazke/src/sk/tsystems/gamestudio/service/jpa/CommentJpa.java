@@ -21,7 +21,7 @@ public class CommentJpa {
 	public List<Comment> findCommentsForGame(Game game) {
 		List<Comment> comments = new ArrayList<>();
 		EntityManager em = JpaHelper.getEntityManager();
-		Query query = em.createQuery("Select c from Comment c where c.game = :game order by c.id desc");
+		Query query = em.createQuery("Select c from Comment c where c.game = :game and c.comment is not null order by c.id desc");
 		query.setParameter("game", game);
 		comments = query.getResultList();
 		return comments;

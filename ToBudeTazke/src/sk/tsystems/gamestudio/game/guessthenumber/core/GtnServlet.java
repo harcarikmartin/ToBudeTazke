@@ -30,7 +30,7 @@ public class GtnServlet extends HttpServlet {
 		}
 		
 		out.println("<form method='get'>");
-		out.println("<table>");
+		out.println("<table class='gtn'>");
 		int mod = gtn.getInterval()%15;
 		for(int i = 0; i < gtn.getInterval()/15; i++) {
 			out.println("<tr>");
@@ -66,6 +66,7 @@ public class GtnServlet extends HttpServlet {
 				out.printf("<p>Your final score is %5d.</p>", score);
 				gtn = new GuessTheNumber(208);
 				session.setAttribute("gtn", gtn);
+				numberOfTries = 0;
 			}
 		} catch (Exception e){	
 			System.out.println(e.getMessage());

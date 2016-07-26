@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sk.tsystems.gamestudio.entity.jpa.Score;
+import sk.tsystems.gamestudio.service.jpa.GameJpa;
+import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
+import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
+
 
 /**
  * Servlet implementation class StonesServlet
@@ -19,6 +24,7 @@ public class StonesServlet extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		int numberOfMoves = 0;
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession();
@@ -32,6 +38,7 @@ public class StonesServlet extends HttpServlet {
 		try {
 			int value = Integer.parseInt(request.getParameter("value"));
 			field.move(value);
+			numberOfMoves++;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -41,19 +48,23 @@ public class StonesServlet extends HttpServlet {
 			switch (command) {
 			case "up":
 				field.moveUp();
+				numberOfMoves++;
 				break;
 			case "down":
 				field.moveDown();
+				numberOfMoves++;
 				break;
 			case "left":
 				field.moveLeft();
+				numberOfMoves++;
 				break;
 			case "right":
 				field.moveRight();
+				numberOfMoves++;
 				break;
 			}
 		}
-		out.println("<table>");
+		out.println("<table class='stones'>");
 
 		out.println("<tr><td colspan=6 class='stones'><a href='?action=play&game=stones&command=up'>^</a></td></tr>");
 		
@@ -80,8 +91,12 @@ public class StonesServlet extends HttpServlet {
 
 		if (field.isSolved()) {
 			out.println("<h1>Vyhral si</h1>");
+			int score = 5 * field.getColumnCount()*field.getRowCount() - numberOfMoves;
+			new ScoreJpa().addScore(new Score(score, new PlayerJpa().setPresentPlayer("ja"), new GameJpa().setPresentGame("stones")));
+			out.printf("<p>Your final score is %5d.</p>", score);
 			field = new Field(4, 4);
 			session.setAttribute("field", field);
+			numberOfMoves = 0;
 		}
 	}
 

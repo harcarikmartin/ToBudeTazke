@@ -29,6 +29,14 @@ td {
 	text-align: center;
 }
 
+.ratingRadio {
+	text-align: left;
+}
+
+.top {
+	vertical-align: top;
+}
+
 .stones{
 	text-align: center;
 	width: 2.5rem;
