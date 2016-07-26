@@ -26,6 +26,16 @@
 		<div class = "row">
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 			<div class="col-sm-8 col-md-6 col-lg-6">
+				<p class=caps><c:if test="${gamePlay == 'gtn'}">guess my number</c:if></p>
+				<p class=caps><c:if test="${gamePlay != 'gtn'}">${gamePlay}</c:if></p>
+				<jsp:include page="/${gamePlay}"></jsp:include>
+			</div>
+			<div class="col-sm-2 col-md-3 col-lg-3"></div>
+		</div>
+		<br>
+		<div class = "row">
+			<div class="col-sm-2 col-md-3 col-lg-3"></div>
+			<div class="col-sm-8 col-md-6 col-lg-6">
 				<table>
 					<tr>
 						<td></td>
@@ -51,14 +61,6 @@
 			</div>
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 		</div>
-	</div>
-	
-  	<div class = "row">
-		<div class="col-sm-2 col-md-3 col-lg-3"></div>
-			<div class="col-sm-8 col-md-6 col-lg-6">
-			<jsp:include page="/${gamePlay}"></jsp:include>
-		</div>
-		<div class="col-sm-2 col-md-3 col-lg-3"></div>
 	</div>
 	
 	<div class = "row">

@@ -9,7 +9,10 @@
 jsp:include {
 	text-align: center;
 }
-
+.caps {
+	font-variant: small-caps;
+	font-size: 1.7rem;
+}
 .game td {
 	font-weight: bold;
 	padding: 0.5rem;
