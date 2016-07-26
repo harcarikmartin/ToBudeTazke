@@ -4,6 +4,7 @@
 
 
 <c:if test="${gamePlay != null}">
+<hr>
 <form>
         	<input type="hidden" name="action" value="insert" />
         	<input type="hidden" name="game" value="${gamePlay}" />
@@ -14,12 +15,12 @@
         			</tr>
         		</thead>
 	        	<tr>
-	        		<td>Comment</td>
-	        		<td><input type="text" name="comment"></td>
+	        		<td class="commentRating">Comment</td>
+	        		<td class="commentRating">Rating</td>
 	        	</tr>
 	        	<tr>
-	        		<td>Rating</td>
-	        		<td class="ratingRadio">
+	        		<td class="commentRating"><input type="text" width="30" height="10" name="comment"></td>
+	        		<td class="commentRating">
 	        			<input type="radio" name="rating" value="1">*<br>
 	        			<input type="radio" name="rating" value="2">**<br>
 	        			<input type="radio" name="rating" value="3">***<br>
@@ -28,7 +29,9 @@
 	        		</td>
 	        	</tr>
         	</table>
+        	<div class="commentRating">
         	<input type="submit" value="Add" />
+        	</div>
     </form>
 </c:if>
 

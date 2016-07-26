@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     
 <c:if test="${comments != null}">
+<hr>
 <table>
 	<thead>
 		<tr>

@@ -1,86 +1,38 @@
-.col-sm-2, .col-md-2, .col-lg-1 {
-	text-align: right;
-}
-
-body {
-	font-family: sans-serif;
-	background-color: silver;
-}
-
-p {
-	font-size: 1rem;
-	text-align: justify;
-}
-
-h2 {
-	padding-top: 1.5rem;
-	color: rgb(50,255,130);
-	font-weight: bold;
-}
-
-h3 {
-	color: rgb(100,255,180);
-	font-weight: bold;
-}
-
-h4 {
-	color: rgb(100,255,150);
-	font-weight: bold;
-}
-
-a {
-	color: rgb(50,255,130);
-	font-size: 1.5rem;
-}
-
-.stones {
-	text-align: center;
-}
-
-.gtn {
-	font-size: 1rem;
-}
-
-.hr {
-	padding-top: 1rem;
-}
-
-.header {
-	text-align: center;
-}
-
-.form {
+.commentRating {
+	padding: 1rem;
 	text-align: left;
 }
 
-.footer, .foot {
-	color: grey;
-	font-weight: lighter;
-	font-size: 1.2rem;
+.col-sm-10, .col-md-8, .col-lg-8 {
+	text-align: center;
+}
+jsp:include {
 	text-align: center;
 }
 
-.obrazky {
-	width: 31%;
+.game td {
+	font-weight: bold;
+	padding: 0.5rem;
+	border: thin;
+	border-style: solid;
 }
-
-.top {
+.gameIcon {
+	padding: 0.3rem;
+}
+.gameDiv {
+	text-align: center;
+}
+h1{
+	color: #23527c;
+}
+table {
+	width: 100%
+}
+th {
 	vertical-align: top;
+	text-align: center;
 }
-
-.tFoot {
-	font-size: 0.8rem;
+body {
+	background-image: url("http://www.dotcomsense.de/images/paper_bg.jpg");
+	text-align: center;
 }
-
-thead {
-	font-weight: bold;
-}
-
-tbody {
-	text-align: left;
-}
-td {
-	padding-left: 0.5rem;
-	padding-right: 0.5rem;
-}
-

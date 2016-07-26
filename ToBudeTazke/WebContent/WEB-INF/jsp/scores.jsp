@@ -3,6 +3,7 @@
     pageEncoding="ISO-8859-1"%>
 
 <c:if test="${scores != null}">
+<hr>
 <table>
 	<thead>
 		<tr>

@@ -25,12 +25,13 @@ public class GtnServlet extends HttpServlet {
 		
 		GuessTheNumber gtn = (GuessTheNumber) session.getAttribute("gtn");
 		if (gtn == null) {
-			gtn = new GuessTheNumber(208);
+			gtn = new GuessTheNumber(210);
 			session.setAttribute("gtn", gtn);
 		}
 		
 		out.println("<form method='get'>");
-		out.println("<table class='gtn'>");
+		out.println("<hr>");
+		out.println("<table  class='game'>");
 		int mod = gtn.getInterval()%15;
 		for(int i = 0; i < gtn.getInterval()/15; i++) {
 			out.println("<tr>");
@@ -64,7 +65,7 @@ public class GtnServlet extends HttpServlet {
 				int score = 5 * gtn.getInterval() - numberOfTries;
 				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("gtn")));
 				out.printf("<p>Your final score is %5d.</p>", score);
-				gtn = new GuessTheNumber(208);
+				gtn = new GuessTheNumber(210);
 				session.setAttribute("gtn", gtn);
 				numberOfTries = 0;
 			}

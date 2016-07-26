@@ -62,7 +62,9 @@ public class StonesServlet extends HttpServlet {
 				break;
 			}
 		}
-		out.println("<table class='stones'>");
+		
+		out.println("<hr>");
+		out.println("<table class='game'>");
 
 		out.println("<tr><td colspan=6 class='stones'><a href='?action=play&game=stones&command=up'>^</a></td></tr>");
 		

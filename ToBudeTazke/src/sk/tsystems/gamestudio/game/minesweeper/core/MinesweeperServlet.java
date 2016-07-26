@@ -72,8 +72,10 @@ public class MinesweeperServlet extends HttpServlet {
 			field = new Field(ROWS, COLS, MINES);
 			session.setAttribute("minesfield", field);
 		} 
-			
-		out.println("<table>");
+		
+		out.println("<hr>");
+		out.println("<div class='gameDiv'>");
+		out.println("<table class='game'>");
 
 		for (int x = 0; x < field.getRowCount(); x++) {
 			out.println("<tr>");
@@ -122,7 +124,8 @@ public class MinesweeperServlet extends HttpServlet {
 			}
 			out.println("</tr>");
 		}
-		out.println("</table><br>");
+		out.println("</table>");
+		out.println("</div>");
 		
 		out.println("<div><p>Remaining mines: " + field.getRemainingMineCount() + "</p></div>");
 	}

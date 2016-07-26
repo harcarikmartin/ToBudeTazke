@@ -4,7 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel='stylesheet' href='stylesheetBootstrap.css' type='text/css'>
+<link rel='stylesheet' href='bootstrap/css/bootstrap.css' type='text/css'>
+<link rel="stylesheet" href="stylesheetBootstrap.css" type="text/css" media="screen">
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gamestudio</title>
 </head>
@@ -13,7 +15,6 @@
 	<!-- 
 	<a href="/ToBudeTazke/minesweeper">Minesweeper</a>
 	 -->
-	<h3>Type your name</h3> 
 	<form>
 		<input type="hidden" name="action" value="login">
 		Username: <input type="text" name="user">
