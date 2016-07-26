@@ -13,7 +13,6 @@ import sk.tsystems.gamestudio.entity.jpa.Score;
 import sk.tsystems.gamestudio.service.jpa.GameJpa;
 import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 
-
 /**
  * Servlet implementation class StonesServlet
  */

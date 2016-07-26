@@ -19,7 +19,7 @@
 				<td>Game</td>
 			<c:forEach items="${games}" var="game">
 				<td><a class="menuItem"
-					href="?action=play&game=${game.gameName}">${game.gameName}</a></td>
+					href="?action=play&game=${game.gameName}"><img alt="${game.gameName}" src="images/${game.gameName}.png"></a></td>
 			</c:forEach>
 		</tr>
 		<tr>
