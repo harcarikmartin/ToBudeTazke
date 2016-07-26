@@ -92,7 +92,7 @@ public class StonesServlet extends HttpServlet {
 		if (field.isSolved()) {
 			out.println("<h1>Vyhral si</h1>");
 			int score = 5 * field.getColumnCount()*field.getRowCount() - numberOfMoves;
-			new ScoreJpa().addScore(new Score(score, new PlayerJpa().setPresentPlayer("ja"), new GameJpa().setPresentGame("stones")));
+			new ScoreJpa().addScore(new Score(score, new PlayerJpa().setPresentPlayer("default"), new GameJpa().setPresentGame("stones")));
 			out.printf("<p>Your final score is %5d.</p>", score);
 			field = new Field(4, 4);
 			session.setAttribute("field", field);

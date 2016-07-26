@@ -63,7 +63,7 @@ public class MinesweeperServlet extends HttpServlet {
 		if (field.getState().equals(GameState.SOLVED)) {
 			int time = (int)((System.currentTimeMillis() - startMillis) / 1000);
 			out.println("<h1 class='finished'>You Win!</h1>");
-			new ScoreJpa().addScore(new Score(time, new PlayerJpa().setPresentPlayer("ja"), new GameJpa().setPresentGame("minesweeper")));
+			new ScoreJpa().addScore(new Score(time, new PlayerJpa().setPresentPlayer("default"), new GameJpa().setPresentGame("minesweeper")));
 			out.println("<p>It took you " + time + " seconds.</p>");
 			field = new Field(ROWS, COLS, MINES);
 			session.setAttribute("minesfield", field);

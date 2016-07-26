@@ -29,12 +29,6 @@ public class GamestudioServlet extends HttpServlet {
     List<Integer> ratingsCounts = new ArrayList<>();
     Player player;
     
-    
-	@Override
-    public void init() throws ServletException {
-		
-       }
-	
 	@SessionScoped
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -55,7 +49,6 @@ public class GamestudioServlet extends HttpServlet {
 			request.setAttribute("ratingsCounts", ratingsCounts);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
-			
 			request.setAttribute("games", games);
 			String gameString = request.getParameter("game");
 			request.setAttribute("gamePlay", gameString);
@@ -66,6 +59,7 @@ public class GamestudioServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").include(request, response);
 		} else if("insert".equals(action) && request.getParameter("userName") != null && request.getParameter("rating") != null) {
 			Player player = new PlayerJpa().setPresentPlayer(request.getParameter("userName"));
+			request.setAttribute("name", player.getPlayerName());
 			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
 			new CommentJpa().addComment(new Comment(request.getParameter("comment"), player, game1));
 			new RatingJpa().addRating(new Rating(Integer.parseInt(request.getParameter("rating")), player, game1));
