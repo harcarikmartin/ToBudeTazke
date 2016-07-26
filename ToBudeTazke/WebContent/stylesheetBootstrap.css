@@ -13,6 +13,13 @@ jsp:include {
 	font-variant: small-caps;
 	font-size: 1.7rem;
 }
+.stones td {
+	font-size: 3rem;
+	font-weight: bold;
+	padding: 0.5rem;
+	border: thin;
+	border-style: solid;
+}
 .game td {
 	font-weight: bold;
 	padding: 0.5rem;

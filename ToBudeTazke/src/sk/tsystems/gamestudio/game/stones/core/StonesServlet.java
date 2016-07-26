@@ -64,15 +64,15 @@ public class StonesServlet extends HttpServlet {
 		}
 		
 		out.println("<hr>");
-		out.println("<table class='game'>");
+		out.println("<table class='stones'>");
 
-		out.println("<tr><td colspan=6 class='stones'><a href='?action=play&game=stones&command=up'>^</a></td></tr>");
+//		out.println("<tr><td colspan=6 class='stones'><a href='?action=play&game=stones&command=up'>^</a></td></tr>");
 		
 		for (int row = 0; row < field.getRowCount(); row++) {
 			out.println("<tr>");
-			if(row == 0) {
-				out.println("<td rowspan=4 class='stones'><a href='?action=play&game=stones&command=left'>&lt;</a></td>");
-			}
+//			if(row == 0) {
+//				out.println("<td rowspan=4 class='stones'><a href='?action=play&game=stones&command=left'>&lt;</a></td>");
+//			}
 			for (int column = 0; column < field.getColumnCount(); column++) {
 				out.println("<td class='stones'>");
 				int value = field.getValueAt(row, column);
@@ -82,16 +82,16 @@ public class StonesServlet extends HttpServlet {
 					out.printf("<a href='?action=play&game=stones&value=%d'>%2d</a>", value, value);
 				}
 			}
-			if(row == 0) {
-				out.println("<td rowspan=4 class='stones'><a href='?action=play&game=stones&command=right'>></a></td>");
-			}
+//			if(row == 0) {
+//				out.println("<td rowspan=4 class='stones'><a href='?action=play&game=stones&command=right'>></a></td>");
+//			}
 		}
-		out.println("<tr><td colspan=6 class='stones'><a href='?action=play&game=stones&command=down'>v</a></td></tr>");
+//		out.println("<tr><td colspan=6 class='stones'><a href='?action=play&game=stones&command=down'>v</a></td></tr>");
 		out.println("</table>");
 
 		if (field.isSolved()) {
 			out.println("<h1>You win!</h1>");
-			int score = 5 * field.getColumnCount()*field.getRowCount() - numberOfMoves;
+			int score = 10 * field.getColumnCount()*field.getRowCount() - numberOfMoves;
 			if(score < 0) {
 				score = 0;
 			}
