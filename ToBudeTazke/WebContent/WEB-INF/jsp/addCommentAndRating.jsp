@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+
 <c:if test="${gamePlay != null}">
 <form>
         	<input type="hidden" name="action" value="insert" />
@@ -12,10 +13,6 @@
         				<th colspan="2">Add comment and rating</th>
         			</tr>
         		</thead>
-	        	<tr>
-	        		<td>Name </td>
-	        		<td><input type="text" name="userName"></td>
-	        	</tr>
 	        	<tr>
 	        		<td>Comment</td>
 	        		<td><input type="text" name="comment"></td>
@@ -34,3 +31,8 @@
         	<input type="submit" value="Add" />
     </form>
 </c:if>
+
+<!--     
+
+
+ -->

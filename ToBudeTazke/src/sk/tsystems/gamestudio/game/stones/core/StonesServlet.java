@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import sk.tsystems.gamestudio.entity.jpa.Player;
 import sk.tsystems.gamestudio.entity.jpa.Score;
 import sk.tsystems.gamestudio.service.jpa.GameJpa;
-import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
 import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 
 
@@ -21,10 +20,10 @@ import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 @WebServlet("/stones")
 public class StonesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+	int numberOfMoves = 0;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		int numberOfMoves = 0;
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession();
@@ -90,9 +89,12 @@ public class StonesServlet extends HttpServlet {
 		out.println("</table>");
 
 		if (field.isSolved()) {
-			out.println("<h1>Vyhral si</h1>");
+			out.println("<h1>You win!</h1>");
 			int score = 5 * field.getColumnCount()*field.getRowCount() - numberOfMoves;
-			new ScoreJpa().addScore(new Score(score, new PlayerJpa().setPresentPlayer("default"), new GameJpa().setPresentGame("stones")));
+			if(score < 0) {
+				score = 0;
+			}
+			new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("stones")));
 			out.printf("<p>Your final score is %5d.</p>", score);
 			field = new Field(4, 4);
 			session.setAttribute("field", field);

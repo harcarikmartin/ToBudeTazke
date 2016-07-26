@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import sk.tsystems.gamestudio.entity.jpa.Player;
 import sk.tsystems.gamestudio.entity.jpa.Score;
 import sk.tsystems.gamestudio.game.minesweeper.core.Tile.State;
 import sk.tsystems.gamestudio.service.jpa.GameJpa;
-import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
 import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 
 @WebServlet("/minesweeper")
@@ -63,7 +62,7 @@ public class MinesweeperServlet extends HttpServlet {
 		if (field.getState().equals(GameState.SOLVED)) {
 			int time = (int)((System.currentTimeMillis() - startMillis) / 1000);
 			out.println("<h1 class='finished'>You Win!</h1>");
-			new ScoreJpa().addScore(new Score(time, new PlayerJpa().setPresentPlayer("default"), new GameJpa().setPresentGame("minesweeper")));
+			new ScoreJpa().addScore(new Score(time, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("minesweeper")));
 			out.println("<p>It took you " + time + " seconds.</p>");
 			field = new Field(ROWS, COLS, MINES);
 			session.setAttribute("minesfield", field);

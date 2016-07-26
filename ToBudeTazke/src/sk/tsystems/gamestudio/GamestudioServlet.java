@@ -3,14 +3,12 @@ package sk.tsystems.gamestudio;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import sk.tsystems.gamestudio.entity.jpa.Comment;
 import sk.tsystems.gamestudio.entity.jpa.Game;
 import sk.tsystems.gamestudio.entity.jpa.Player;
@@ -28,20 +26,22 @@ public class GamestudioServlet extends HttpServlet {
     List<Double> avgRatings = new ArrayList<>();
     List<Integer> ratingsCounts = new ArrayList<>();
     Player player;
+    HttpSession session = null;
     
-	@SessionScoped
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		HttpSession session = request.getSession();
-		Game game = (Game) session.getAttribute("Gamestudio");
-		if (game == null) {
-			game = new Game();
-			session.setAttribute("Gamestudio", game);
-		}
 		
-		if ("login".equals(action) && !(request.getParameter("user").trim().isEmpty())) {
-			player = new PlayerJpa().setPresentPlayer(request.getParameter("user"));
-			request.setAttribute("logged", player.getPlayerName());
+		if ("login".equals(action)) {
+			session = request.getSession();
+			player = (Player) session.getAttribute("player");
+			if(player == null) {
+				if(request.getParameter("user").trim().isEmpty()) {
+					player = new PlayerJpa().setPresentPlayer("default");
+				}else {
+					player = new PlayerJpa().setPresentPlayer(request.getParameter("user"));
+				}
+				session.setAttribute("player", player);
+			}
 			request.setAttribute("games", games);
 			String gameString = request.getParameter("game");
 			request.setAttribute("gamePlay", gameString);
@@ -57,13 +57,17 @@ public class GamestudioServlet extends HttpServlet {
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(gameString)));
 			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(gameString)));
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").include(request, response);
-		} else if("insert".equals(action) && request.getParameter("userName") != null && request.getParameter("rating") != null) {
-			Player player = new PlayerJpa().setPresentPlayer(request.getParameter("userName"));
+		} else if("insert".equals(action) && request.getParameter("rating") != null) {
 			request.setAttribute("name", player.getPlayerName());
 			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
-			new CommentJpa().addComment(new Comment(request.getParameter("comment"), player, game1));
+			new CommentJpa().addComment(new Comment(request.getParameter("comment").trim(), player, game1));
 			new RatingJpa().addRating(new Rating(Integer.parseInt(request.getParameter("rating")), player, game1));
-			forwardToList(request, response);
+			request.setAttribute("games", games);
+			String gameString = request.getParameter("game");
+			request.setAttribute("gamePlay", gameString);
+			request.setAttribute("avgRatings", avgRatings);
+			request.setAttribute("ratingsCounts", ratingsCounts);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
 		} else {
             forwardToList(request, response);
 		}
@@ -86,6 +90,8 @@ public class GamestudioServlet extends HttpServlet {
 		request.setAttribute("games", games);
 		request.setAttribute("avgRatings", avgRatings);
 		request.setAttribute("ratingsCounts", ratingsCounts);
-		request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+		
+		
 	}
 }
