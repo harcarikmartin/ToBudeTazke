@@ -21,9 +21,9 @@ public class MinesweeperServlet extends HttpServlet {
 	long startMillis = System.currentTimeMillis();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final int ROWS = 8;
-		final int COLS = 8;
-		final int MINES = 10;
+		final int ROWS = 9;
+		final int COLS = 9;
+		final int MINES = 11;
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		
@@ -32,13 +32,19 @@ public class MinesweeperServlet extends HttpServlet {
 		if (field == null) {
 			field = new Field(ROWS, COLS, MINES);
 			session.setAttribute("minesfield", field);
+			startMillis = System.currentTimeMillis();
 		}
 		
 		try {
 			String newGame = (request.getParameter("newGame").toString());
 			if(newGame != null) {
-				field = new Field(ROWS, COLS, MINES);
+				if(request.getParameter("level").toString().equals("easy")) {
+					field = new Field(6, 6, 5);
+				} else {
+					field = new Field(ROWS, COLS, MINES);
+				}
 				session.setAttribute("minesfield", field);
+				startMillis = System.currentTimeMillis();
 			}
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
@@ -62,17 +68,12 @@ public class MinesweeperServlet extends HttpServlet {
 		if (field.getState().equals(GameState.SOLVED)) {
 			int time = (int)((System.currentTimeMillis() - startMillis) / 1000);
 			out.println("<h1 class='finished'>You Win!</h1>");
-			new ScoreJpa().addScore(new Score(time, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("minesweeper")));
+			new ScoreJpa().addScore(new Score(600 - time, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("minesweeper")));
 			out.println("<p>It took you " + time + " seconds.</p>");
-			field = new Field(ROWS, COLS, MINES);
-			session.setAttribute("minesfield", field);
 		} 
 		if (field.getState().equals(GameState.FAILED)) {
-			out.println("<h1 class='finished'>You Lost!</h1>");
-			field = new Field(ROWS, COLS, MINES);
-			session.setAttribute("minesfield", field);
+			out.println("<h1 class='finished'>You Lost! Let's try again.</h1>");
 		} 
-		
 		out.println("<hr>");
 		out.println("<div class='gameDiv'>");
 		out.println("<table class='game'>");
@@ -126,8 +127,17 @@ public class MinesweeperServlet extends HttpServlet {
 		}
 		out.println("</table>");
 		out.println("</div>");
-		
 		out.println("<div><p>Remaining mines: " + field.getRemainingMineCount() + "</p></div>");
+		out.println("<div>"
+				+ "<form>"
+					+ "<input type='hidden' name='action' value='play' />"
+					+ "<input type='hidden' name='game' value='minesweeper' />"
+					+ "<input type='hidden' name='newGame' value='newgame' />"
+					+ "<input type='submit' value='New Game' />"
+					+ "&nbsp;Easy <input type='radio' name='level' value='easy' checked='checked'/>"
+					+ "&nbsp;Medium <input type='radio' name='level' value='medium' />"
+				+ "</form>"
+				+ "</div>");
 	}
 
 	/**

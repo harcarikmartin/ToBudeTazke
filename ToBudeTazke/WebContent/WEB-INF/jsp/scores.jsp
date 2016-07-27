@@ -7,17 +7,17 @@
 <table>
 	<thead>
 		<tr>
-			<th colspan="2">List of scores</th>
+			<th colspan="2">Top 10</th>
 		</tr>
 		<tr>
-			<th>Score</th>
 			<th>Player</th>
+			<th>Score</th>
 		</tr>
 	</thead>
 	<c:forEach items="${scores}" var="score">
 		<tr>
-			<td>${score.score}</td>
 			<td>${score.player.playerName}</td>
+			<td>${score.score}</td>
 		</tr>
 	</c:forEach>
 </table>

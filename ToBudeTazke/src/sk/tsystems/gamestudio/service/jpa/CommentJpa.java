@@ -22,7 +22,7 @@ public class CommentJpa {
 		List<Comment> comments = new ArrayList<>();
 		EntityManager em = JpaHelper.getEntityManager();
 		Query query = em.createQuery("Select c from Comment c where c.game = :game and c.comment is not null order by c.id desc");
-		query.setParameter("game", game);
+		query.setParameter("game", game).setMaxResults(10);
 		comments = query.getResultList();
 		return comments;
 	}

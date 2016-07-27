@@ -13,7 +13,12 @@ jsp:include {
 	font-variant: small-caps;
 	font-size: 1.7rem;
 }
-.stones td {
+.side {
+	width: 16%;
+	border-style: none;
+}
+.stones {
+	width: 16%;
 	font-size: 3rem;
 	font-weight: bold;
 	padding: 0.5rem;

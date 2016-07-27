@@ -22,7 +22,7 @@ public class ScoreJpa {
 		List<Score> scores = new ArrayList<>();
 		EntityManager em = JpaHelper.getEntityManager();
 		Query query = em.createQuery("Select s from Score s where s.game = :game order by s.score desc");
-		query.setParameter("game", game);
+		query.setParameter("game", game).setMaxResults(10);
 		scores = query.getResultList();
 		return scores;
 	}

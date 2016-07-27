@@ -26,7 +26,7 @@ public class GamestudioServlet extends HttpServlet {
     List<Double> avgRatings = new ArrayList<>();
     List<Integer> ratingsCounts = new ArrayList<>();
     Player player;
-    HttpSession session = null;
+    HttpSession session;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");

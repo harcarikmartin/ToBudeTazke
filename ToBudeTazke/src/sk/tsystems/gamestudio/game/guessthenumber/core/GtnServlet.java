@@ -29,6 +29,16 @@ public class GtnServlet extends HttpServlet {
 			session.setAttribute("gtn", gtn);
 		}
 		
+		try {
+			String newGame = (request.getParameter("newGame").toString());
+			if(newGame != null) {
+				gtn = new GuessTheNumber(210);
+				session.setAttribute("gtn", gtn);
+			}
+		} catch (Exception e){	
+			System.out.println(e.getMessage());
+		}
+		
 		out.println("<form method='get'>");
 		out.println("<hr>");
 		out.println("<table  class='game'>");
@@ -48,20 +58,21 @@ public class GtnServlet extends HttpServlet {
 			out.println("</tr>");
 		}
 		out.println("</table>");
+		
 		out.println("</form>");
 		
 		try {
 			int guess = Integer.parseInt(request.getParameter("gtn"));
 			if(guess > gtn.getNumberToGuess()) {
-				out.println("<p>" + guess + " is too high.</p><br>");
+				out.println("<p>" + guess + " is too high.</p>");
 				numberOfTries++;
 			}
 			if(guess < gtn.getNumberToGuess()) {
-				out.println("<p>" + guess + " is too low.</p><br>");
+				out.println("<p>" + guess + " is too low.</p>");
 				numberOfTries++;
 			}
 			if(guess == gtn.getNumberToGuess()) {
-				out.println("<p>" + guess + " is right. You win!</p><br>");
+				out.println("<h1>" + guess + " is right. You win!</h1>");
 				int score = 5 * gtn.getInterval() - numberOfTries;
 				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("gtn")));
 				out.printf("<p>Your final score is %5d.</p>", score);
@@ -72,6 +83,8 @@ public class GtnServlet extends HttpServlet {
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
 		}
+		out.println("<div><form><input type='hidden' name='action' value='play' /><input type='hidden' name='game' value='gtn' /><input type='hidden' name='newGame' value='newgame' /><input type='submit' value='New Game' /></form></div>");
+		
 	}
 
 	/**
