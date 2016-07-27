@@ -60,6 +60,7 @@ public class GtnServlet extends HttpServlet {
 		out.println("</table>");
 		
 		out.println("</form>");
+		out.println("<br>");
 		
 		try {
 			int guess = Integer.parseInt(request.getParameter("gtn"));

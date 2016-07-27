@@ -19,7 +19,7 @@
 	        		<td class="commentRating">Rating</td>
 	        	</tr>
 	        	<tr>
-	        		<td class="commentRating"><input type="text" width="30" height="10" name="comment"></td>
+	        		<td class="commentRating"><input type="text" placeholder="your comment" maxlength="200" name="comment"></td>
 	        		<td class="commentRating">
 	        			<input type="radio" name="rating" value="1">*<br>
 	        			<input type="radio" name="rating" value="2">**<br>
@@ -29,7 +29,7 @@
 	        		</td>
 	        	</tr>
         	</table>
-        	<div class="commentRating">
+        	<div class="addSubmit">
         	<input type="submit" value="Add" />
         	</div>
     </form>

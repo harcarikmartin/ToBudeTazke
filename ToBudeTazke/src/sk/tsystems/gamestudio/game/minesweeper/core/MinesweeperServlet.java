@@ -126,8 +126,10 @@ public class MinesweeperServlet extends HttpServlet {
 			out.println("</tr>");
 		}
 		out.println("</table>");
+		out.println("<br>");
 		out.println("</div>");
 		out.println("<div><p>Remaining mines: " + field.getRemainingMineCount() + "</p></div>");
+		out.println("<br>");
 		out.println("<div>"
 				+ "<form>"
 					+ "<input type='hidden' name='action' value='play' />"

@@ -1,8 +1,12 @@
 .commentRating {
 	padding: 1rem;
 	text-align: left;
+	vertical-align: top;
 }
 
+.addSubmit {
+	text-align: center;
+}
 .col-sm-10, .col-md-8, .col-lg-8 {
 	text-align: center;
 }

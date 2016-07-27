@@ -36,8 +36,13 @@ public class StonesServlet extends HttpServlet {
 		try {
 			String newGame = (request.getParameter("newGame").toString());
 			if(newGame != null) {
-				fieldStones = new Field(4, 4);
+				if(request.getParameter("level").toString().equals("easy")) {
+					fieldStones = new Field(4, 4);
+				} else {
+					fieldStones = new Field(5, 5);
+				}
 				session.setAttribute("field", fieldStones);
+				numberOfMoves = 0;
 			}
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
@@ -94,7 +99,16 @@ public class StonesServlet extends HttpServlet {
 			out.println("</tr>");
 		}
 		out.println("</table>");
-		out.println("<div><form><input type='hidden' name='action' value='play' /><input type='hidden' name='game' value='stones' /><input type='hidden' name='newGame' value='newgame' /><input type='submit' value='New Game' /></form></div>");
+		out.println("<br>");
+		out.println("<div>"
+				+ "<form><input type='hidden' name='action' value='play' />"
+					+ "<input type='hidden' name='game' value='stones' />"
+					+ "<input type='hidden' name='newGame' value='newgame' />"
+					+ "<input type='submit' value='New Game' />"
+					+ "&nbsp;Easy <input type='radio' name='level' value='easy' checked='checked'/>"
+					+ "&nbsp;Medium <input type='radio' name='level' value='medium' />"
+				+ "</form>"
+				+ "</div>");
 		
 
 		if (fieldStones.isSolved()) {
@@ -105,9 +119,6 @@ public class StonesServlet extends HttpServlet {
 			}
 			new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("stones")));
 			out.printf("<p>Your final score is %5d.</p>", score);
-			fieldStones = new Field(4, 4);
-			session.setAttribute("field", fieldStones);
-			numberOfMoves = 0;
 		}
 	}
 
