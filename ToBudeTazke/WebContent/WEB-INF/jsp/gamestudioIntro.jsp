@@ -6,21 +6,16 @@
 <head>
 <link rel='stylesheet' href='bootstrap/css/bootstrap.css' type='text/css'>
 <link rel="stylesheet" href="stylesheetBootstrap.css" type="text/css" media="screen">
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gamestudio</title>
 </head>
 <body>
-	<h1>Welcome to Gamestudio</h1>
-	<!-- 
-	<a href="/ToBudeTazke/minesweeper">Minesweeper</a>
-	 -->
+<div>
 	<form>
-		<input type="hidden" name="action" value="login">
+		<input type="hidden" name="action" value="logMe">
 		Username: <input type="text" name="user">
 		<input type="submit" value="Login">
 	</form>
-
-	
+</div>
 </body>
 </html>

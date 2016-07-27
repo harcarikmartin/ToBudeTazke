@@ -14,25 +14,25 @@
   		<div class = "row">
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 			<div class="col-sm-8 col-md-6 col-lg-6">
-				<h1><a href="/ToBudeTazke/Gamestudio">Welcome to Gamestudio</a></h1></div>
+				<h1><a href="/ToBudeTazke/Gamestudio">Welcome to Gamestudio ${player.playerName}</a></h1></div>
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 		</div>
-		<div class = "row">
-			<div class="col-sm-2 col-md-3 col-lg-3"></div>
-			<div class="col-sm-8 col-md-6 col-lg-6">
-				<p>Choose the game you want to play</p></div>
-			<div class="col-sm-2 col-md-3 col-lg-3"></div>
-		</div>
-		<div class = "row">
-			<div class="col-sm-2 col-md-3 col-lg-3"></div>
-			<div class="col-sm-8 col-md-6 col-lg-6">
-				<p class=caps><c:if test="${gamePlay == 'gtn'}">guess my number</c:if></p>
-				<p class=caps><c:if test="${gamePlay != 'gtn'}">${gamePlay}</c:if></p>
-				<jsp:include page="/${gamePlay}"></jsp:include>
+		
+		<div class="row">
+			<div class="col-sm-3 col-md-4 col-lg-4"></div>
+			<div class="col-sm-6 col-md-4 col-lg-4">
+				<c:if test="${player == null}">
+					<div>
+						<form>
+							<input type="hidden" name="action" value="login">
+							<input type="submit" value="Login">
+						</form>
+					</div>
+				</c:if>
 			</div>
-			<div class="col-sm-2 col-md-3 col-lg-3"></div>
+			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 		</div>
-		<br>
+		
 		<div class = "row">
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 			<div class="col-sm-8 col-md-6 col-lg-6">
@@ -45,6 +45,14 @@
 									alt="${game.gameName}" src="images/${game.gameName}.png"></a></td>
 						</c:forEach>
 					</tr>
+					<c:if test="${player != null}">
+					<tr>
+						<td>Rate the Game</td>
+						<c:forEach items="${games}" var="game">
+							<td class="stred"><jsp:include page="addRating.jsp"></jsp:include></td>
+						</c:forEach>
+					</tr>
+					</c:if>
 					<tr>
 						<td>Average Rating</td>
 						<c:forEach items="${avgRatings}" var="avgRating">
@@ -62,7 +70,16 @@
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 		</div>
 	</div>
-	
+	<br>
+	<div class = "row">
+			<div class="col-sm-2 col-md-3 col-lg-3"></div>
+			<div class="col-sm-8 col-md-6 col-lg-6">
+				<p class=caps><c:if test="${gamePlay == 'gtn'}">guess my number</c:if></p>
+				<p class=caps><c:if test="${gamePlay != 'gtn'}">${gamePlay}</c:if></p>
+				<jsp:include page="/${gamePlay}"></jsp:include>
+			</div>
+			<div class="col-sm-2 col-md-3 col-lg-3"></div>
+	</div>
 	<div class = "row">
 		<div class="col-sm-3 col-md-4 col-lg-4"></div>
 		<div class="col-sm-3 col-md-2 col-lg-2">
@@ -73,11 +90,10 @@
 		</div>
 		<div class="col-sm-3 col-md-4 col-lg-4"></div>
 	</div>
-	
 	<div class="row">
 		<div class="col-sm-3 col-md-4 col-lg-4"></div>
 		<div class="col-sm-6 col-md-4 col-lg-4">
-			<jsp:include page="addCommentAndRating.jsp"></jsp:include></div>
+			<jsp:include page="addComment.jsp"></jsp:include></div>
 		<div class="col-sm-3 col-md-4 col-lg-4"></div>
 	</div>
 </body>

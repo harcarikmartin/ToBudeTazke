@@ -75,7 +75,9 @@ public class GtnServlet extends HttpServlet {
 			if(guess == gtn.getNumberToGuess()) {
 				out.println("<h1>" + guess + " is right. You win!</h1>");
 				int score = 5 * gtn.getInterval() - numberOfTries;
-				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("gtn")));
+				if(session.getAttribute("player") != null) {
+					new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("gtn")));
+				}
 				out.printf("<p>Your final score is %5d.</p>", score);
 				gtn = new GuessTheNumber(210);
 				session.setAttribute("gtn", gtn);

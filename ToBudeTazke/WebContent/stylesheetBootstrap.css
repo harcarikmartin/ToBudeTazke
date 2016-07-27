@@ -5,7 +5,7 @@
 }
 
 .addSubmit {
-	text-align: center;
+	text-align: left;
 }
 .col-sm-10, .col-md-8, .col-lg-8 {
 	text-align: center;
@@ -20,6 +20,9 @@ jsp:include {
 .side {
 	width: 16%;
 	border-style: none;
+}
+.stred {
+	text-align: center;
 }
 .stones {
 	width: 16%;

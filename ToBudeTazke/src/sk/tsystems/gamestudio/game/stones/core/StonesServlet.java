@@ -117,7 +117,9 @@ public class StonesServlet extends HttpServlet {
 			if(score < 0) {
 				score = 0;
 			}
-			new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("stones")));
+			if(session.getAttribute("player") != null) {
+				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("stones")));
+			}
 			out.printf("<p>Your final score is %5d.</p>", score);
 		}
 	}
