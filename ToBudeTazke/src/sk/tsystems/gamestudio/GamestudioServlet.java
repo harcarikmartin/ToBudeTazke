@@ -45,6 +45,7 @@ public class GamestudioServlet extends HttpServlet {
 			request.setAttribute("games", games);
 			String gameString = request.getParameter("game");
 			request.setAttribute("gamePlay", gameString);
+			updateRatings();
 			request.setAttribute("avgRatings", avgRatings);
 			request.setAttribute("ratingsCounts", ratingsCounts);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
@@ -52,6 +53,7 @@ public class GamestudioServlet extends HttpServlet {
 			request.setAttribute("games", games);
 			String gameString = request.getParameter("game");
 			request.setAttribute("gamePlay", gameString);
+			updateRatings();
 			request.setAttribute("avgRatings", avgRatings);
 			request.setAttribute("ratingsCounts", ratingsCounts);
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(gameString)));
@@ -65,6 +67,7 @@ public class GamestudioServlet extends HttpServlet {
 			request.setAttribute("games", games);
 			String gameString = request.getParameter("game");
 			request.setAttribute("gamePlay", gameString);
+			updateRatings();
 			request.setAttribute("avgRatings", avgRatings);
 			request.setAttribute("ratingsCounts", ratingsCounts);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
@@ -79,6 +82,16 @@ public class GamestudioServlet extends HttpServlet {
 	
 	private void forwardToList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		updateRatings();
+		request.setAttribute("games", games);
+		request.setAttribute("avgRatings", avgRatings);
+		request.setAttribute("ratingsCounts", ratingsCounts);
+		request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+		
+		
+	}
+
+	private void updateRatings() {
 		avgRatings.clear();
 		ratingsCounts.clear();
 		for (int i = 0; i < games.size(); i++) {
@@ -87,11 +100,5 @@ public class GamestudioServlet extends HttpServlet {
 		for (int i = 0; i < games.size(); i++) {
 			ratingsCounts.add(i,new RatingJpa().findRatingsCountForGame(new GameJpa().setPresentGame(games.get(i).getGameName())));
 		}
-		request.setAttribute("games", games);
-		request.setAttribute("avgRatings", avgRatings);
-		request.setAttribute("ratingsCounts", ratingsCounts);
-		request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
-		
-		
 	}
 }
