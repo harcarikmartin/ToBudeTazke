@@ -2,8 +2,9 @@ package sk.tsystems.gamestudio.service.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import sk.testJpa.jpa.JpaHelper;
+
 import sk.tsystems.gamestudio.entity.jpa.Player;
+import testJpa.jpa.JpaHelper;
 
 public class PlayerJpa {
 	

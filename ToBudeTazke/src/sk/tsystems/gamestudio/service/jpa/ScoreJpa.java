@@ -6,9 +6,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import sk.testJpa.jpa.JpaHelper;
 import sk.tsystems.gamestudio.entity.jpa.Game;
 import sk.tsystems.gamestudio.entity.jpa.Score;
+import testJpa.jpa.JpaHelper;
 
 public class ScoreJpa {
 	

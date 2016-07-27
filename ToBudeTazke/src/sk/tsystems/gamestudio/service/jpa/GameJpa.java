@@ -6,8 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import sk.testJpa.jpa.JpaHelper;
 import sk.tsystems.gamestudio.entity.jpa.Game;
+import testJpa.jpa.JpaHelper;
 
 public class GameJpa {
 	public void addGame(Game game) {

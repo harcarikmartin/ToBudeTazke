@@ -6,9 +6,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import sk.testJpa.jpa.JpaHelper;
 import sk.tsystems.gamestudio.entity.jpa.Comment;
 import sk.tsystems.gamestudio.entity.jpa.Game;
+import testJpa.jpa.JpaHelper;
 
 public class CommentJpa {
 	
