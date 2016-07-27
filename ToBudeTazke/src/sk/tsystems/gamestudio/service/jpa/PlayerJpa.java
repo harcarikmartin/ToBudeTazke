@@ -14,18 +14,18 @@ public class PlayerJpa {
 		JpaHelper.commitTransaction();
 	}
 	
-	public Player setPresentPlayer(String playerName) {
+	public Player setPresentPlayer(String playerName, String password) {
 		int id = getId(playerName);
 		if(id > 0) {
 			EntityManager em = JpaHelper.getEntityManager();
 			return em.find(Player.class, id);
 		} else {
-			addPlayer(new Player(playerName));
-			return setPresentPlayer(playerName);
+			addPlayer(new Player(playerName, password));
+			return setPresentPlayer(playerName, password);
 		}
 	}
 
-	private int getId(String playerName) {
+	public int getId(String playerName) {
 		EntityManager em = JpaHelper.getEntityManager();
 		Query query = em.createQuery("select id from Player p where p.playerName = :playerName");
 		query.setParameter("playerName", playerName);
@@ -38,5 +38,17 @@ public class PlayerJpa {
 		}
 	}
 	
-	
+	public boolean isPasswordCorrect(String playerName, String password) {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("select id from Player p where p.playerName = :playerName and "
+				+ "p.password = :password");
+		query.setParameter("playerName", playerName);
+		query.setParameter("password", password);
+		if(query.getResultList().isEmpty()) {
+			em.close();
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

@@ -4,27 +4,27 @@
     <persistence-unit name="hibernatePersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            
+            <!--
             <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"/>
-          	<!-- 
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/> 
           	--> 
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/> 
+          	 
             <!-- 
             <property name="hibernate.connection.url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
             <property name="hibernate.connection.username" value="GameCenter"/>
             <property name="hibernate.connection.password" value="Gamecenter"/>
             -->
             
-            
+            <!--
             <property name="hibernate.connection.url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
             <property name="hibernate.connection.username" value="Gamestudio"/>
             <property name="hibernate.connection.password" value="Gamestudio"/>
-            
-            <!-- 
+            -->
+             
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/gamecenter"/>
             <property name="hibernate.connection.username" value="GamecenterJpa"/>
             <property name="hibernate.connection.password" value="GamecenterJpa"/>
-            -->
+            
             
             <!--<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>-->
             <!--<property name="hibernate.connection.charSet" value="UTF-8"/>-->

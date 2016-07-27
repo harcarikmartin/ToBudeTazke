@@ -76,8 +76,6 @@ public class MinesweeperServlet extends HttpServlet {
 		if (field.getState().equals(GameState.FAILED)) {
 			out.println("<h1 class='finished'>You Lost! Let's try again.</h1>");
 		} 
-		out.println("<hr>");
-		out.println("<div class='gameDiv'>");
 		out.println("<table class='game'>");
 
 		for (int x = 0; x < field.getRowCount(); x++) {
@@ -129,19 +127,17 @@ public class MinesweeperServlet extends HttpServlet {
 		}
 		out.println("</table>");
 		out.println("<br>");
-		out.println("</div>");
-		out.println("<div><p>Remaining mines: " + field.getRemainingMineCount() + "</p></div>");
+		
+		out.println("<p>Remaining mines: " + field.getRemainingMineCount() + "</p>");
 		out.println("<br>");
-		out.println("<div>"
-				+ "<form>"
+		out.println("<form>"
 					+ "<input type='hidden' name='action' value='play' />"
 					+ "<input type='hidden' name='game' value='minesweeper' />"
 					+ "<input type='hidden' name='newGame' value='newgame' />"
 					+ "<input type='submit' value='New Game' />"
 					+ "&nbsp;Easy <input type='radio' name='level' value='easy' checked='checked'/>"
 					+ "&nbsp;Medium <input type='radio' name='level' value='medium' />"
-				+ "</form>"
-				+ "</div>");
+				+ "</form>");
 	}
 
 	/**

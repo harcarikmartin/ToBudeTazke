@@ -17,8 +17,24 @@ jsp:include {
 	font-variant: small-caps;
 	font-size: 1.7rem;
 }
+.star {
+	
+}
 .inline {
+	float: right;
+	padding-right: 2rem;
+	padding-top: 2rem;
+}
+.star:hover {
+	background-image: url(file:/images/star.png);
+}
+.float {
 	float: left;
+	width: 33%
+}
+.gameDiv {
+	float: left;
+	width: 49%;
 }
 .side {
 	width: 16%;

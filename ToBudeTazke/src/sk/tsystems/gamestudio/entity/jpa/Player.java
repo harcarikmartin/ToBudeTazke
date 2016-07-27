@@ -12,15 +12,19 @@ public class Player {
 	private int id;
 	
 	private String playerName;
+	private String password;
 	
 	
 	public Player() {
 	
 	}
+	
 
-	public Player(String playerName) {
+	public Player(String playerName, String password) {
 		this.playerName = playerName;
+		this.password = password;
 	}
+
 
 	public int getId() {
 		return id;
@@ -38,9 +42,18 @@ public class Player {
 		this.playerName = playerName;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", playerName=" + playerName + "]";
+		return "Player [id=" + id + ", playerName=" + playerName + ", password=" + password + "]";
 	}
 	
 	

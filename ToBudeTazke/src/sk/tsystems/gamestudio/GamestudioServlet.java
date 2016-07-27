@@ -28,19 +28,49 @@ public class GamestudioServlet extends HttpServlet {
     Player player;
     HttpSession session;
     
+
+//	player = (Player) session.getAttribute("player");
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		
-		if ("logMe".equals(action)) {
-			session = request.getSession();
-			player = (Player) session.getAttribute("player");
-			if(player == null) {
-				player = new PlayerJpa().setPresentPlayer(request.getParameter("user").trim());
+		if ("logMe".equals(action) && "user" != null && "password" != null) {
+			if(new PlayerJpa().getId(request.getParameter("user")) == 0 ) {
+				request.setAttribute("register", 1);
+				request.setAttribute("error", 4);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+			} else if(new PlayerJpa().isPasswordCorrect(request.getParameter("user"), request.getParameter("password"))){
+				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
+				session = request.getSession();
+				session.setAttribute("player", player);
+				serviceUpdate(request);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 			}
-			session.setAttribute("player", player);
-			serviceUpdate(request);
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
+		} else if("registerMe".equals(action) && "user" != null && "password" != null && "passwordR" != null) {
+			if(! (request.getParameter("password")).equals(request.getParameter("passwordR"))) {
+				request.setAttribute("register", 1);
+				request.setAttribute("error", 1);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+			} else if (request.getParameter("password").length() < 6) {
+				request.setAttribute("register", 1);
+				request.setAttribute("error", 2);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+			} else if (new PlayerJpa().getId(request.getParameter("user")) != 0) {
+				request.setAttribute("register", 1);
+				request.setAttribute("error", 3);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+			} else {
+				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
+				session = request.getSession();
+				session.setAttribute("player", player);
+				serviceUpdate(request);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
+			}
 		} else if("login".equals(action)) {
+			request.setAttribute("login", 1);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+		} else if("register".equals(action)) {
+			request.setAttribute("register", 1);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
 			serviceUpdate(request);
