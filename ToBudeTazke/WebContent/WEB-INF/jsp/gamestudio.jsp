@@ -22,10 +22,16 @@
 			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 			<div class="col-sm-6 col-md-4 col-lg-4">
 				<c:if test="${player == null}">
-					<div>
+					<div class="inline">
 						<form>
 							<input type="hidden" name="action" value="login">
 							<input type="submit" value="Login">
+						</form>
+					</div>
+					<div class="inline">
+						<form>
+							<input type="hidden" name="action" value="register">
+							<input type="submit" value="Register">
 						</form>
 					</div>
 				</c:if>
@@ -49,7 +55,13 @@
 					<tr>
 						<td>Rate the Game</td>
 						<c:forEach items="${games}" var="game">
-							<td class="stred"><jsp:include page="addRating.jsp"></jsp:include></td>
+							<td class="stred">
+							<a href="?action=insertRating&rating=1&game=${game.gameName}"><img src="images/star.png"></a>
+							<a href="?action=insertRating&rating=2&game=${game.gameName}"><img src="images/star.png"></a>
+							<a href="?action=insertRating&rating=3&game=${game.gameName}"><img src="images/star.png"></a>
+							<a href="?action=insertRating&rating=4&game=${game.gameName}"><img src="images/star.png"></a>
+							<a href="?action=insertRating&rating=5&game=${game.gameName}"><img src="images/star.png"></a>
+							</td>
 						</c:forEach>
 					</tr>
 					</c:if>
@@ -65,6 +77,27 @@
 							<td>${ratingsCount}</td>
 						</c:forEach>
 					</tr>
+					<c:if test="${player != null}">
+					<tr>
+						<td>Comment</td>
+						<c:forEach items="${games}" var="game">
+							<td>
+								<form>
+					        	<input type="hidden" name="action" value="insertComment" />
+					        	<input type="hidden" name="game" value="${gamePlay}" />
+					        	<div class="addSubmit">
+					        		<div>
+					        			<input type="text" placeholder="your comment" maxlength="200" name="comment">
+					        		</div>
+					        		<div>
+						        		<input type="submit" value="Comment" />
+						        	</div>
+					        	</div>
+							    </form>
+							</td>
+						</c:forEach>
+					</tr>
+					</c:if>
 				</table>
 			</div>
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
@@ -88,12 +121,6 @@
 		<div class="col-sm-3 col-md-2 col-lg-2">
 			<jsp:include page="comments.jsp" />
 		</div>
-		<div class="col-sm-3 col-md-4 col-lg-4"></div>
-	</div>
-	<div class="row">
-		<div class="col-sm-3 col-md-4 col-lg-4"></div>
-		<div class="col-sm-6 col-md-4 col-lg-4">
-			<jsp:include page="addComment.jsp"></jsp:include></div>
 		<div class="col-sm-3 col-md-4 col-lg-4"></div>
 	</div>
 </body>

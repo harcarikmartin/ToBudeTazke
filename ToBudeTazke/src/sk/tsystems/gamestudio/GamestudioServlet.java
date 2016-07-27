@@ -39,26 +39,26 @@ public class GamestudioServlet extends HttpServlet {
 			}
 			session.setAttribute("player", player);
 			serviceUpdate(request);
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else if("login".equals(action)) {
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
 			serviceUpdate(request);
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
 			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").include(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").include(request, response);
 		} else if("insertRating".equals(action) && request.getParameter("rating") != null) {
 			request.setAttribute("name", player.getPlayerName());
 			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
 			new RatingJpa().addRating(new Rating(Integer.parseInt(request.getParameter("rating")), player, game1));
 			serviceUpdate(request);
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else if("insertComment".equals(action) && !request.getParameter("comment").isEmpty()) {
 			request.setAttribute("name", player.getPlayerName());
 			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
 			new CommentJpa().addComment(new Comment(request.getParameter("comment").trim(), player, game1));
 			serviceUpdate(request);
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else {
             forwardToList(request, response);
 		}
@@ -79,7 +79,7 @@ public class GamestudioServlet extends HttpServlet {
 	private void forwardToList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		serviceUpdate(request);
-		request.getRequestDispatcher("/WEB-INF/jsp/gamestudioLogged.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 	}
 
 	private void updateRatings() {
