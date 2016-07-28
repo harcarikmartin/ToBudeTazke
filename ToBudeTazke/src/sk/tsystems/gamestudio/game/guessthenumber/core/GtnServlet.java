@@ -25,14 +25,14 @@ public class GtnServlet extends HttpServlet {
 		
 		GuessTheNumber gtn = (GuessTheNumber) session.getAttribute("gtn");
 		if (gtn == null) {
-			gtn = new GuessTheNumber(105);
+			gtn = new GuessTheNumber(100);
 			session.setAttribute("gtn", gtn);
 		}
 		
 		try {
 			String newGame = (request.getParameter("newGame").toString());
 			if(newGame != null) {
-				gtn = new GuessTheNumber(105);
+				gtn = new GuessTheNumber(100);
 				session.setAttribute("gtn", gtn);
 			}
 		} catch (Exception e){	
@@ -41,11 +41,11 @@ public class GtnServlet extends HttpServlet {
 		
 		out.println("<form method='get'>");
 		out.println("<table  class='game'>");
-		int mod = gtn.getInterval()%15;
-		for(int i = 0; i < gtn.getInterval()/15; i++) {
+		int mod = gtn.getInterval()%10;
+		for(int i = 0; i < gtn.getInterval()/10; i++) {
 			out.println("<tr>");
-			for(int j = 1; j <= 15; j++) {
-				out.printf("<td><a href='?action=play&game=gtn&gtn=%d'>%3d</a></td>", (i * 15 + j), (i * 15 + j));
+			for(int j = 1; j <= 10; j++) {
+				out.printf("<td><a href='?action=play&game=gtn&gtn=%d'>%3d</a></td>", (i * 10 + j), (i * 10 + j));
 				}
 			out.println("</tr>");
 		}
@@ -78,7 +78,7 @@ public class GtnServlet extends HttpServlet {
 					new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("gtn")));
 				}
 				out.printf("<p>Your final score is %5d.</p>", score);
-				gtn = new GuessTheNumber(105);
+				gtn = new GuessTheNumber(100);
 				session.setAttribute("gtn", gtn);
 				numberOfTries = 0;
 			}
