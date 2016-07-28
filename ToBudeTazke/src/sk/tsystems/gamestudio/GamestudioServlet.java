@@ -126,11 +126,11 @@ public class GamestudioServlet extends HttpServlet {
 	
 	private void forwardToList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		new GameJpa().setPresentGame("minesweeper");
+//		new GameJpa().setPresentGame("flipit");
 //		new GameJpa().setPresentGame("gtn");
 //		new GameJpa().setPresentGame("stones");
 //		new PlayerJpa().setPresentPlayer("root", "root");
-//		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("minesweeper")));
+//		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("flipit")));
 //		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("gtn")));
 //		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("stones")));
 		serviceUpdate(request);

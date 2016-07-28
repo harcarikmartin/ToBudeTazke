@@ -38,7 +38,7 @@ th {
 	
 }
 .spolu {
-	width: 90%;
+	width: 95%;
 }
 .comment {
 	overflow: hidden;
@@ -67,12 +67,10 @@ th {
 	padding-bottom: 2rem;
 	float: left;
 }
-.star:hover {
-	background-image: url(file:/images/star.png);
-}
+
 .float {
 	float: left;
-	width: 33%
+	width: 24%;
 }
 .gameDiv {
 	float: left;

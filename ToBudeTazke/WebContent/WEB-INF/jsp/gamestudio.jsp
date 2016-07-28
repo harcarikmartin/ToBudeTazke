@@ -67,8 +67,8 @@
 		</div>
 		
 		<div class = "row">
-			<div class="col-sm-3 col-md-3 col-lg-3"></div>
-			<div class="col-sm-7 col-md-7 col-lg-7">
+			<div class="col-sm-2 col-md-2 col-lg-2"></div>
+			<div class="col-sm-8 col-md-8 col-lg-8">
 				<c:forEach items="${games}" var="game">
 					<div class="float">
 						<a class="menuItem"
