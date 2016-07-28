@@ -161,11 +161,23 @@ public class Field {
 	 * Returns true if 
 	 */
 	public boolean isSolved() {
-		if (getRowCount() * getColumnCount() - getNumberOf(Tile.State.OPEN) == getMineCount()) {
+		if ((getRowCount() * getColumnCount() - getNumberOf(Tile.State.OPEN) == getMineCount()) && minesAreClosed()) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	private boolean minesAreClosed() {
+		boolean miny = true;
+		for (int y = 0; y < getColumnCount(); y++) {
+			for (int x = 0; x < getRowCount(); x++) {
+				if (!(tiles[x][y].getState().equals(Tile.State.CLOSED) && tiles[x][y] instanceof Mine)) {
+					miny = false;
+				}
+			}
+		}
+		return miny;
 	}
 
 	/**
