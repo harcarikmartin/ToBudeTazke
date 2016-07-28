@@ -26,4 +26,15 @@ public class CommentJpa {
 		comments = query.getResultList();
 		return comments;
 	}
+	
+	public int getCommentsCount() {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("select count(*) from Comment c");
+		if(query.getResultList().isEmpty()) {
+			em.close();
+			return 0;
+		} else {
+			return Math.toIntExact((long) query.getResultList().get(0));
+		}
+	}
 }

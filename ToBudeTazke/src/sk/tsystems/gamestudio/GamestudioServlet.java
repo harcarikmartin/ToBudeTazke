@@ -28,9 +28,6 @@ public class GamestudioServlet extends HttpServlet {
     Player player;
     HttpSession session;
     
-
-//	player = (Player) session.getAttribute("player");
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		
@@ -44,6 +41,13 @@ public class GamestudioServlet extends HttpServlet {
 				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
 				session = request.getSession();
 				session.setAttribute("player", player);
+				forwardToList(request, response);
+			} else if(!new PlayerJpa().isPasswordCorrect(request.getParameter("user"), request.getParameter("password"))){
+				request.setAttribute("showLogin", 1);
+				request.setAttribute("login", 1);
+				request.setAttribute("error", 5);
+				forwardToList(request, response);
+			} else {
 				forwardToList(request, response);
 			}
 		} else if("registerMe".equals(action) && "user" != null && "password" != null && "passwordR" != null) {

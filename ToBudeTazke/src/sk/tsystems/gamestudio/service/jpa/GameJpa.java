@@ -46,4 +46,15 @@ public class GameJpa {
 			return (int) query.getResultList().get(0);
 		}
 	}
+	
+	public int getGamesCount() {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("select count(*) from Game g");
+		if(query.getResultList().isEmpty()) {
+			em.close();
+			return 0;
+		} else {
+			return Math.toIntExact((long) query.getResultList().get(0));
+		}
+	}
 }

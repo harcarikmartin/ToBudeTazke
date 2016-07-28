@@ -60,18 +60,19 @@ public class Field implements Serializable {
 				index++;
 			}
 		}
-		Random rn = new Random();
-		int next = 0;
-		for (int i = 0; i < 200; i++) {
-			next = rn.nextInt(8);
-			switch (next) {
-			case 1: moveDown();break;
-			case 2: moveUp();break;
-			case 3: moveLeft();break;
-			case 4: moveRight();break;
-			default:break;
-			}
-		}
+//		Random rn = new Random();
+//		int next = 0;
+//		for (int i = 0; i < 200; i++) {
+//			next = rn.nextInt(8);
+//			switch (next) {
+//			case 1: moveDown();break;
+//			case 2: moveUp();break;
+//			case 3: moveLeft();break;
+//			case 4: moveRight();break;
+//			default:break;
+//			}
+//		}
+		move(15);
 	}
 
 	private Position getPositionOf(int value) {

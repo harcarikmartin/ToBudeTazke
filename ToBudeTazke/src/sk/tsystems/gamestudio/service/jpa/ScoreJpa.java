@@ -26,4 +26,15 @@ public class ScoreJpa {
 		scores = query.getResultList();
 		return scores;
 	}
+	
+	public int getScoresCount() {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("select count(*) from Score s");
+		if(query.getResultList().isEmpty()) {
+			em.close();
+			return 0;
+		} else {
+			return Math.toIntExact((long) query.getResultList().get(0));
+		}
+	}
 }

@@ -21,9 +21,9 @@ public class MinesweeperServlet extends HttpServlet {
 	long startMillis = System.currentTimeMillis();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final int ROWS = 9;
-		final int COLS = 9;
-		final int MINES = 11;
+		final int ROWS = 6;
+		final int COLS = 6;
+		final int MINES = 1;
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		
@@ -39,7 +39,7 @@ public class MinesweeperServlet extends HttpServlet {
 			String newGame = (request.getParameter("newGame").toString());
 			if(newGame != null) {
 				if(request.getParameter("level").toString().equals("easy")) {
-					field = new Field(6, 6, 5);
+					field = new Field(4, 4, 1);
 				} else {
 					field = new Field(ROWS, COLS, MINES);
 				}
@@ -128,9 +128,9 @@ public class MinesweeperServlet extends HttpServlet {
 		out.println("</table>");
 		out.println("<br>");
 		
-		out.println("<p>Remaining mines: " + field.getRemainingMineCount() + "</p>");
+		out.println("<p class='mines'>Remaining mines: " + field.getRemainingMineCount() + "</p>");
 		out.println("<br>");
-		out.println("<form class='newGameButton'>"
+		out.println("<form class='newGameButton' action=''>"
 					+ "<input type='hidden' name='action' value='play' />"
 					+ "<input type='hidden' name='game' value='minesweeper' />"
 					+ "<input type='hidden' name='newGame' value='newgame' />"

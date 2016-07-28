@@ -19,7 +19,7 @@
 				<c:if test="${player == null}">
 					<div class="inline">
 						<c:if test="${defaultLog == '1'}">
-						<form>
+						<form action="">
 							<input type="hidden" name="action" value="login">
 							<input type="submit" value="Login">
 						</form>
@@ -38,6 +38,9 @@
 								</c:if>
 								<c:if test="${error == '4'}">
 									<p class="warning">Not registered yet!</p>
+								</c:if>
+								<c:if test="${error == '5'}">
+									<p class="warning">Wrong password!</p>
 								</c:if>
 								
 								<div>Username: <input type="text" name="user"></div>
@@ -64,18 +67,18 @@
 		</div>
 		
 		<div class = "row">
-			<div class="col-sm-2 col-md-3 col-lg-3"></div>
-			<div class="col-sm-8 col-md-6 col-lg-6">
+			<div class="col-sm-3 col-md-3 col-lg-3"></div>
+			<div class="col-sm-7 col-md-7 col-lg-7">
 				<c:forEach items="${games}" var="game">
 					<div class="float">
 						<a class="menuItem"
-								href="?action=play&game=${game.gameName}"><img
+								href="?action=play&amp;game=${game.gameName}"><img
 									alt="${game.gameName}" src="images/${game.gameName}.png"></a>
 					</div>
 				</c:forEach>
 				<c:forEach items="${avgRatings}" var="avgRating">
 					<div class="float">
-						<img src="images/stars/${avgRating}.png">
+						<img alt="star" src="images/stars/${avgRating}.png">
 					</div>
 				</c:forEach>
 				<c:forEach items="${ratingsCounts}" var="ratingsCount">
@@ -84,19 +87,19 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class="col-sm-2 col-md-3 col-lg-3"></div>
+			<div class="col-sm-2 col-md-2 col-lg-2"></div>
 		</div>
 	
 	
 	<hr>
 	<div class = "row">
-			<div class="col-sm-3 col-md-3 col-lg-3"></div>
-			<div class="col-sm-4 col-md-4 col-lg-4">
+			<div class="col-sm-1 col-md-1 col-lg-1"></div>
+			<div class="col-sm-5 col-md-5 col-lg-5">
 				<p class=caps><c:if test="${gamePlay == 'gtn'}">guess my number</c:if></p>
 				<p class=caps><c:if test="${gamePlay != 'gtn'}">${gamePlay}</c:if></p>
 				<jsp:include page="/${gamePlay}"></jsp:include>
 			</div>
-			<div class="col-sm-5 col-md-5 col-lg-5">
+			<div class="col-sm-6 col-md-6 col-lg-6">
 				<div class="inline2">
 					<c:if test="${scores != null}">
 						<table>
@@ -111,8 +114,8 @@
 							</thead>
 							<c:forEach items="${scores}" var="score">
 								<tr>
-									<td class="comment"><p>${score.player.playerName}</p></td>
-									<td class="comment"><p>${score.score}</p></td>
+									<td><div class="comment">${score.player.playerName}</div></td>
+									<td><div class="comment">${score.score}</div></td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -132,25 +135,25 @@
 							</thead>
 							<c:forEach items="${comments}" var="comment">
 								<tr>
-									<td class="comment"><p>${comment.comment}</p></td>
-									<td class="comment"><p>${comment.player.playerName}</p></td>
+									<td><div class="comment">${comment.comment}</div></td>
+									<td><div class="comment">${comment.player.playerName}</div></td>
 								</tr>
 							</c:forEach>
 						</table>
 					</c:if>
 				</div>
-				<div>
+				<div class="spolu">
 					<c:if test="${player != null}">
 					<div>
 					<c:if test="${gamePlay != null}">
 						<div class="inlineL">
 							<p><c:if test="${gamePlay == 'gtn'}">Rate Guess my number</c:if></p>
 							<p><c:if test="${gamePlay != 'gtn'}">Rate ${gamePlay}</c:if></p>
-							<a href="?action=insertRating&rating=1&game=${gamePlay}"><img src="images/stars/star1.png"></a>
-							<a href="?action=insertRating&rating=2&game=${gamePlay}"><img src="images/stars/star2.png"></a>
-							<a href="?action=insertRating&rating=3&game=${gamePlay}"><img src="images/stars/star3.png"></a>
-							<a href="?action=insertRating&rating=4&game=${gamePlay}"><img src="images/stars/star4.png"></a>
-							<a href="?action=insertRating&rating=5&game=${gamePlay}"><img src="images/stars/star5.png"></a>
+							<a href="?action=insertRating&amp;rating=1&amp;game=${gamePlay}"><img alt="star1" src="images/stars/star1.png"></a>
+							<a href="?action=insertRating&amp;rating=2&amp;game=${gamePlay}"><img alt="star2" src="images/stars/star2.png"></a>
+							<a href="?action=insertRating&amp;rating=3&amp;game=${gamePlay}"><img alt="star3" src="images/stars/star3.png"></a>
+							<a href="?action=insertRating&amp;rating=4&amp;game=${gamePlay}"><img alt="star4" src="images/stars/star4.png"></a>
+							<a href="?action=insertRating&amp;rating=5&amp;game=${gamePlay}"><img alt="star5" src="images/stars/star5.png"></a>
 						</div>
 						<div class="inlineL">
 						<p><c:if test="${gamePlay == 'gtn'}">Add comment for Guess my number</c:if></p>
@@ -160,7 +163,7 @@
 				        	<input type="hidden" name="game" value="${gamePlay}" />
 				        	<div class="addSubmit">
 				        		<div>					
-				        		    <input type="text" placeholder="your comment" maxlength="200" name="comment">
+				        		    <textarea placeholder="your comment" rows="4" cols="30" maxlength="200" name="comment"></textarea>
 					        	</div>
 					        	<div>
 						        	<input type="submit" value="Comment" />

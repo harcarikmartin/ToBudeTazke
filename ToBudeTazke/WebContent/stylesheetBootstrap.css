@@ -7,30 +7,46 @@
 .addSubmit {
 	text-align: center;
 }
-.col-sm-10, .col-md-8, .col-lg-8 {
+.col-sm-5, .col-md-5, .col-lg-5 {
 	margin: auto;
-	text-align: center;
+	float: left;
+	
 }
+
 jsp:include {
 	text-align: center;
 }
+th {
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: thin;
+	border-bottom-style: solid;
+}
+.stats {
+	text-align: left;
+	padding-left: 5rem;
+	padding-top: 3rem;
+}
 .caps {
+	text-align: center;
 	font-variant: small-caps;
 	font-size: 1.7rem;
 }
-.star {
+.mines {
+	text-align: center;
 	
+}
+.spolu {
+	width: 90%;
 }
 .comment {
-	max-width: 100px;
+	overflow: hidden;
+	width: 100%;
+	max-width: 100%;
 }
-.comment p {
-	width: 90%;
-	max-width: 90%;
-	
-}
+
 .inline {
-	float: right;
 	padding-right: 2rem;
 	padding-top: 2rem;
 }
@@ -40,6 +56,8 @@ jsp:include {
 	float: left;
 }
 .newGameButton {
+	
+	text-align: center;
 	padding-bottom: 2rem;
 	padding-top: 1rem;
 }

@@ -62,4 +62,15 @@ public class RatingJpa {
 			return false;
 		}
 	} 
+	
+	public int getRatingsCount() {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("select count(*) from Rating r");
+		if(query.getResultList().isEmpty()) {
+			em.close();
+			return 0;
+		} else {
+			return Math.toIntExact((long) query.getResultList().get(0));
+		}
+	}
 }

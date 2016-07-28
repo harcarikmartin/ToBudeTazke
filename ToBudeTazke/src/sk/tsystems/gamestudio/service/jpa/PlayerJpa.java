@@ -51,4 +51,26 @@ public class PlayerJpa {
 			return true;
 		}
 	}
+	
+	public int getPlayersCount() {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("select count(*) from Player p");
+		if(query.getResultList().isEmpty()) {
+			em.close();
+			return 0;
+		} else {
+			return Math.toIntExact((long) query.getResultList().get(0));
+		}
+	}
+	
+//	public Player getMostActivePlayer() {
+//		EntityManager em = JpaHelper.getEntityManager();
+//		Query query = em.createQuery("select p from Player p join Score s on p.id = s.player_id where");
+//		if(query.getResultList().isEmpty()) {
+//			em.close();
+//			return 0;
+//		} else {
+//			return Math.toIntExact((long) query.getResultList().get(0));
+//		}
+//	}
 }

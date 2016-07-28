@@ -85,7 +85,7 @@ public class GtnServlet extends HttpServlet {
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
 		}
-		out.println("<div class='newGameButton'><form><input type='hidden' name='action' value='play' /><input type='hidden' name='game' value='gtn' /><input type='hidden' name='newGame' value='newgame' /><input type='submit' value='New Game' /></form></div>");
+		out.println("<div class='newGameButton'><form action=''><input type='hidden' name='action' value='play' /><input type='hidden' name='game' value='gtn' /><input type='hidden' name='newGame' value='newgame' /><input type='submit' value='New Game' /></form></div>");
 		
 	}
 

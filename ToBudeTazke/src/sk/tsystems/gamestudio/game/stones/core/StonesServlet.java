@@ -100,7 +100,7 @@ public class StonesServlet extends HttpServlet {
 		out.println("</table>");
 		out.println("<br>");
 		out.println("<div class='newGameButton'>"
-				+ "<form><input type='hidden' name='action' value='play' />"
+				+ "<form action=''><input type='hidden' name='action' value='play' />"
 					+ "<input type='hidden' name='game' value='stones' />"
 					+ "<input type='hidden' name='newGame' value='newgame' />"
 					+ "<input type='submit' value='New Game' />"
