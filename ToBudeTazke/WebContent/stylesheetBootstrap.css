@@ -8,6 +8,7 @@
 	text-align: center;
 }
 .col-sm-10, .col-md-8, .col-lg-8 {
+	margin: auto;
 	text-align: center;
 }
 jsp:include {
@@ -22,6 +23,10 @@ jsp:include {
 }
 .comment {
 	max-width: 100px;
+}
+.comment p {
+	width: 90%;
+	max-width: 90%;
 	
 }
 .inline {
@@ -39,6 +44,7 @@ jsp:include {
 	padding-top: 1rem;
 }
 .inlineL {
+	width: 49%;
 	padding-top: 2rem;
 	padding-bottom: 2rem;
 	float: left;
@@ -69,9 +75,20 @@ jsp:include {
 	border: thin;
 	border-style: solid;
 }
+
 .game td {
 	font-weight: bold;
-	padding: 0.5rem;
+	min-width: 30px;
+	max-width: 50px;
+	border: thin;
+	border-style: solid;
+}
+.mines {
+	max-width: 400px;
+}
+.mines td {
+	font-weight: bold;
+	max-width: 50px;
 	border: thin;
 	border-style: solid;
 }

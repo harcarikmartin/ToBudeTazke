@@ -76,7 +76,7 @@ public class MinesweeperServlet extends HttpServlet {
 		if (field.getState().equals(GameState.FAILED)) {
 			out.println("<h1 class='finished'>You Lost! Let's try again.</h1>");
 		} 
-		out.println("<table class='game'>");
+		out.println("<table class='mines'>");
 
 		for (int x = 0; x < field.getRowCount(); x++) {
 			out.println("<tr>");
