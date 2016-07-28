@@ -20,10 +20,28 @@ jsp:include {
 .star {
 	
 }
+.comment {
+	max-width: 100px;
+	
+}
 .inline {
 	float: right;
 	padding-right: 2rem;
 	padding-top: 2rem;
+}
+.inline2 {
+	width: 49%;
+	text-align: left;
+	float: left;
+}
+.newGameButton {
+	padding-bottom: 2rem;
+	padding-top: 1rem;
+}
+.inlineL {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	float: left;
 }
 .star:hover {
 	background-image: url(file:/images/star.png);

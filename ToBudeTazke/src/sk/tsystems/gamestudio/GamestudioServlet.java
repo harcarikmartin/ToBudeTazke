@@ -36,9 +36,11 @@ public class GamestudioServlet extends HttpServlet {
 		
 		if ("logMe".equals(action) && "user" != null && "password" != null) {
 			if(new PlayerJpa().getId(request.getParameter("user")) == 0 ) {
+				serviceUpdate(request);
+				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 4);
-				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 			} else if(new PlayerJpa().isPasswordCorrect(request.getParameter("user"), request.getParameter("password"))){
 				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
 				session = request.getSession();
@@ -48,17 +50,23 @@ public class GamestudioServlet extends HttpServlet {
 			}
 		} else if("registerMe".equals(action) && "user" != null && "password" != null && "passwordR" != null) {
 			if(! (request.getParameter("password")).equals(request.getParameter("passwordR"))) {
+				serviceUpdate(request);
+				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 1);
-				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 			} else if (request.getParameter("password").length() < 6) {
+				serviceUpdate(request);
+				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 2);
-				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 			} else if (new PlayerJpa().getId(request.getParameter("user")) != 0) {
+				serviceUpdate(request);
+				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 3);
-				request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 			} else {
 				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
 				session = request.getSession();
@@ -67,13 +75,23 @@ public class GamestudioServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 			}
 		} else if("login".equals(action)) {
+			request.setAttribute("showLogin", 1);
 			request.setAttribute("login", 1);
 			serviceUpdate(request);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else if("register".equals(action)) {
+			serviceUpdate(request);
 			request.setAttribute("register", 1);
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
+		} else if("logout".equals(action)) {
+			session.setAttribute("player", null);
+			request.setAttribute("defaultLog", 1);
+			forwardToList(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
+			if(request.getParameter("player") == null) {
+				request.setAttribute("defaultLog", 1);
+			}
 			serviceUpdate(request);
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
 			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
@@ -91,6 +109,7 @@ public class GamestudioServlet extends HttpServlet {
 			serviceUpdate(request);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else {
+			request.setAttribute("defaultLog", 1);
             forwardToList(request, response);
 		}
 	}

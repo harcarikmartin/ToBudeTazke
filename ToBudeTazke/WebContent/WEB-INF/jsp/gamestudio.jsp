@@ -18,13 +18,14 @@
 			<div class="col-sm-2 col-md-3 col-lg-3">
 				<c:if test="${player == null}">
 					<div class="inline">
-						<c:if test="${login != '1'}">
+						<c:if test="${defaultLog == '1'}">
 						<form>
 							<input type="hidden" name="action" value="login">
 							<input type="submit" value="Login">
 						</form>
 						</c:if>
-						<c:if test="${login == '1'}">
+						<c:if test="${showLogin == '1'}">
+						
 							<form>
 								<c:if test="${error == '1'}">
 									<p class="warning">Passwords must match!</p>
@@ -47,11 +48,16 @@
 								</c:if>
 								<c:if test="${register != null}">
 								<input type="hidden" name="action" value="registerMe">
-								<div>Retype password: <input type="password" name="passwordR"></div>
+								<div>Password: <input type="password" name="passwordR"></div>
 								<div><input type="submit" value="Register"></div>
 								</c:if>
 							</form>
 						</c:if>
+					</div>
+				</c:if>
+				<c:if test="${player != null}">
+					<div class="inline">
+						<a href="?action=logout">Logout ${player.playerName}</a>
 					</div>
 				</c:if>
 			</div>
@@ -94,14 +100,58 @@
 	<div class = "row">
 			<div class="col-sm-1 col-md-1 col-lg-1"></div>
 			<div class="col-sm-6 col-md-6 col-lg-6">
-				
 				<p class=caps><c:if test="${gamePlay == 'gtn'}">guess my number</c:if></p>
 				<p class=caps><c:if test="${gamePlay != 'gtn'}">${gamePlay}</c:if></p>
 				<jsp:include page="/${gamePlay}"></jsp:include>
 			</div>
 			<div class="col-sm-5 col-md-5 col-lg-5">
+				<div class="inline2">
+					<c:if test="${comments != null}">
+						<table>
+							<thead>
+								<tr>
+									<th colspan="2">List of comments</th>
+								</tr>
+								<tr>
+									<th>Comment</th>
+									<th>Added by</th>
+								</tr>
+							</thead>
+							<c:forEach items="${comments}" var="comment">
+								<tr>
+									<td class="comment">${comment.comment}</td>
+									<td class="comment">${comment.player.playerName}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:if>
+				</div>
+				<div class="inline2">
+					<c:if test="${scores != null}">
+						<table>
+							<thead>
+								<tr>
+									<th colspan="2">Top 10</th>
+								</tr>
+								<tr>
+									<th>Player</th>
+									<th>Score</th>
+								</tr>
+							</thead>
+							<c:forEach items="${scores}" var="score">
+								<tr>
+									<td class="comment">${score.player.playerName}</td>
+									<td class="comment">${score.score}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:if>
+				</div>
+				<div class="inline2">
 					<c:if test="${player != null}">
-						<div>
+					<div>
+					<c:if test="${gamePlay != null}">
+						<div class="inlineL">
 						<p><c:if test="${gamePlay == 'gtn'}">Rate Guess my number</c:if></p>
 						<p><c:if test="${gamePlay != 'gtn'}">Rate ${gamePlay}</c:if></p>
 						<a href="?action=insertRating&rating=1&game=${game.gameName}"><img src="images/stars/star1.png"></a>
@@ -110,8 +160,7 @@
 						<a href="?action=insertRating&rating=4&game=${game.gameName}"><img src="images/stars/star4.png"></a>
 						<a href="?action=insertRating&rating=5&game=${game.gameName}"><img src="images/stars/star5.png"></a>
 						</div>
-						<br>
-						<div>
+						<div class="inlineL">
 						<p><c:if test="${gamePlay == 'gtn'}">Add comment for Guess my number</c:if></p>
 						<p><c:if test="${gamePlay != 'gtn'}">Add comment for ${gamePlay}</c:if></p>
 						<form>
@@ -127,21 +176,11 @@
 					        </div>
 						</form>
 						</div>
+						</c:if>	
+						</div>
 					</c:if>			
-				
-			
+				</div>
 			</div>
-	</div>
-	
-	<div class = "row">
-		<div class="col-sm-3 col-md-4 col-lg-4"></div>
-		<div class="col-sm-3 col-md-2 col-lg-2">
-			<jsp:include page="scores.jsp" />
-		</div>
-		<div class="col-sm-3 col-md-2 col-lg-2">
-			<jsp:include page="comments.jsp" />
-		</div>
-		<div class="col-sm-3 col-md-4 col-lg-4"></div>
 	</div>
 </body>
 </html>

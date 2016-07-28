@@ -25,14 +25,14 @@ public class GtnServlet extends HttpServlet {
 		
 		GuessTheNumber gtn = (GuessTheNumber) session.getAttribute("gtn");
 		if (gtn == null) {
-			gtn = new GuessTheNumber(210);
+			gtn = new GuessTheNumber(105);
 			session.setAttribute("gtn", gtn);
 		}
 		
 		try {
 			String newGame = (request.getParameter("newGame").toString());
 			if(newGame != null) {
-				gtn = new GuessTheNumber(210);
+				gtn = new GuessTheNumber(105);
 				session.setAttribute("gtn", gtn);
 			}
 		} catch (Exception e){	
@@ -40,7 +40,6 @@ public class GtnServlet extends HttpServlet {
 		}
 		
 		out.println("<form method='get'>");
-		out.println("<hr>");
 		out.println("<table  class='game'>");
 		int mod = gtn.getInterval()%15;
 		for(int i = 0; i < gtn.getInterval()/15; i++) {
@@ -79,14 +78,14 @@ public class GtnServlet extends HttpServlet {
 					new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("gtn")));
 				}
 				out.printf("<p>Your final score is %5d.</p>", score);
-				gtn = new GuessTheNumber(210);
+				gtn = new GuessTheNumber(105);
 				session.setAttribute("gtn", gtn);
 				numberOfTries = 0;
 			}
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
 		}
-		out.println("<div><form><input type='hidden' name='action' value='play' /><input type='hidden' name='game' value='gtn' /><input type='hidden' name='newGame' value='newgame' /><input type='submit' value='New Game' /></form></div>");
+		out.println("<div class='newGameButton'><form><input type='hidden' name='action' value='play' /><input type='hidden' name='game' value='gtn' /><input type='hidden' name='newGame' value='newgame' /><input type='submit' value='New Game' /></form></div>");
 		
 	}
 

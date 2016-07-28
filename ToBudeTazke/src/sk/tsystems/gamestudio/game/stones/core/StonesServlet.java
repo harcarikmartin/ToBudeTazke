@@ -78,7 +78,6 @@ public class StonesServlet extends HttpServlet {
 			}
 		}
 		
-		out.println("<hr>");
 		out.println("<table>");
 		for (int row = 0; row < fieldStones.getRowCount(); row++) {
 			out.println("<tr>");
@@ -100,7 +99,7 @@ public class StonesServlet extends HttpServlet {
 		}
 		out.println("</table>");
 		out.println("<br>");
-		out.println("<div>"
+		out.println("<div class='newGameButton'>"
 				+ "<form><input type='hidden' name='action' value='play' />"
 					+ "<input type='hidden' name='game' value='stones' />"
 					+ "<input type='hidden' name='newGame' value='newgame' />"
