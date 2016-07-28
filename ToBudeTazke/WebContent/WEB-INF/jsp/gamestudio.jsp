@@ -18,10 +18,40 @@
 			<div class="col-sm-2 col-md-3 col-lg-3">
 				<c:if test="${player == null}">
 					<div class="inline">
+						<c:if test="${login != '1'}">
 						<form>
 							<input type="hidden" name="action" value="login">
 							<input type="submit" value="Login">
 						</form>
+						</c:if>
+						<c:if test="${login == '1'}">
+							<form>
+								<c:if test="${error == '1'}">
+									<p class="warning">Passwords must match!</p>
+								</c:if>
+								<c:if test="${error == '2'}">
+									<p class="warning">Password must be at least 6 digits long!</p>
+								</c:if>
+								<c:if test="${error == '3'}">
+									<p class="warning">Username already exists!</p>
+								</c:if>
+								<c:if test="${error == '4'}">
+									<p class="warning">Not registered yet!</p>
+								</c:if>
+								
+								<div>Username: <input type="text" name="user"></div>
+								<div>Password: <input type="password" name="password"></div>
+								<c:if test="${login != null}">
+								<input type="hidden" name="action" value="logMe">
+								<div><input type="submit" value="Login"></div>
+								</c:if>
+								<c:if test="${register != null}">
+								<input type="hidden" name="action" value="registerMe">
+								<div>Retype password: <input type="password" name="passwordR"></div>
+								<div><input type="submit" value="Register"></div>
+								</c:if>
+							</form>
+						</c:if>
 					</div>
 				</c:if>
 			</div>

@@ -68,7 +68,8 @@ public class GamestudioServlet extends HttpServlet {
 			}
 		} else if("login".equals(action)) {
 			request.setAttribute("login", 1);
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
+			serviceUpdate(request);
+			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else if("register".equals(action)) {
 			request.setAttribute("register", 1);
 			request.getRequestDispatcher("/WEB-INF/jsp/gamestudioIntro.jsp").forward(request, response);
