@@ -41,8 +41,8 @@ public class StudiostatsServlet extends HttpServlet {
 				+ "Comment c group by c.game.gameName order by count(c.game.gameName) desc", GameCountComments.class).getResultList());
 		request.setAttribute("gameCountRatings", JpaHelper.getEntityManager().createQuery("Select new sk.tsystems.gamestudio.service.jpa.GameCountRatings(r.game.gameName, count(r.game.gameName)) from "
 				+ "Rating r group by r.game.gameName order by count(r.game.gameName) desc", GameCountRatings.class).getResultList());
-		request.setAttribute("mostActivePlayer", JpaHelper.getEntityManager().createQuery("Select max(s.player.playerName) from "
-				+ "Score s group by s.player").getResultList().toString());
+		request.setAttribute("mostActivePlayer",JpaHelper.getEntityManager().createQuery("Select new sk.tsystems.gamestudio.service.jpa.GameCountScores(s.player.playerName, count(s.player.playerName)) from "
+				+ "Score s group by s.player.playerName order by count(s.player.playerName) desc", GameCountScores.class).getResultList().get(0));
 		request.getRequestDispatcher("/WEB-INF/jsp/studioStats.jsp").forward(request, response);
 	}
 

@@ -169,11 +169,11 @@ public class Field {
 	}
 
 	private boolean minesAreClosed() {
-		boolean miny = true;
+		boolean miny = false;
 		for (int y = 0; y < getColumnCount(); y++) {
 			for (int x = 0; x < getRowCount(); x++) {
-				if (!(tiles[x][y].getState().equals(Tile.State.CLOSED) && tiles[x][y] instanceof Mine)) {
-					miny = false;
+				if (tiles[x][y].getState().equals(Tile.State.CLOSED) && tiles[x][y] instanceof Mine) {
+					miny = true;
 				}
 			}
 		}

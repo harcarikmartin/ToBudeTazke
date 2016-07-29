@@ -32,8 +32,9 @@
 			<li><b>${gameCS.game}</b> was played <b>${gameCS.countScores}</b>  times.</li>
 		</c:forEach>
 	</ul>
-	<p>Most active player: <b>${mostActivePlayer}</b></p> <!-- -->
+	<li>Most active player: <b>${mostActivePlayer.game}</b></li> <!-- -->
 	</ol>
+	
 	<br><p>to <a href="/ToBudeTazke/Gamestudio">Gamestudio</a></p>
 </body>
 </html>
