@@ -121,13 +121,19 @@ public class GamestudioServlet extends HttpServlet {
 	}
 
 	private void updateRatings() {
-		avgRatings.clear();
-		ratingsCounts.clear();
-		for (int i = 0; i < games.size(); i++) {
-			avgRatings.add(i, (int) new RatingJpa().findAverageRatingForGame(new GameJpa().setPresentGame(games.get(i).getGameName())));
-		}
-		for (int i = 0; i < games.size(); i++) {
-			ratingsCounts.add(i,new RatingJpa().findRatingsCountForGame(new GameJpa().setPresentGame(games.get(i).getGameName())));
+		try {
+			avgRatings.clear();
+			ratingsCounts.clear();
+			for (int i = 0; i < games.size(); i++) {
+				
+					avgRatings.add(i, (int) new RatingJpa().findAverageRatingForGame(new GameJpa().setPresentGame(games.get(i).getGameName())));
+				
+			}
+			for (int i = 0; i < games.size(); i++) {
+				ratingsCounts.add(i,new RatingJpa().findRatingsCountForGame(new GameJpa().setPresentGame(games.get(i).getGameName())));
+			}
+		} catch (Exception e) {
+			System.err.println("No ratings found." + e.getMessage());
 		}
 	}
 }

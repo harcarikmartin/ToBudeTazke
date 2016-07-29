@@ -83,7 +83,7 @@
 				</c:forEach>
 				<c:forEach items="${ratingsCounts}" var="ratingsCount">
 					<div class="float">
-						Rated by ${ratingsCount} players.
+						Rated <c:if test="${ratingsCount == 1}"><b>once</b></c:if><c:if test="${ratingsCount != 1}"><b>${ratingsCount}</b> times</c:if>
 					</div>
 				</c:forEach>
 			</div>

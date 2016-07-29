@@ -40,6 +40,16 @@ public class RatingJpa {
 		}
 	}
 	
+	public double getAverageRatings() {
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("Select avg(r.rating) from Rating r");
+		if(query.getResultList().isEmpty()) {
+			return 0;
+		} else {
+			return (double) query.getResultList().get(0);
+		}
+	}
+	
 	private void deleteRating(Rating rating) {
 		JpaHelper.beginTransaction();
 		EntityManager em = JpaHelper.getEntityManager();

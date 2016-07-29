@@ -33,6 +33,7 @@ public class StudiostatsServlet extends HttpServlet {
 		request.setAttribute("playersCount", new PlayerJpa().getPlayersCount());
 		request.setAttribute("gamesCount", new GameJpa().getGamesCount());
 		request.setAttribute("ratingsCount", new RatingJpa().getRatingsCount());
+		request.setAttribute("averageRating", new RatingJpa().getAverageRatings());
 		request.setAttribute("commentsCount", new CommentJpa().getCommentsCount());
 		request.setAttribute("scoresCount", new ScoreJpa().getScoresCount());
 		request.setAttribute("gameCountScores", JpaHelper.getEntityManager().createQuery("Select new sk.tsystems.gamestudio.service.jpa.GameCountScores(s.game.gameName, count(s.game.gameName)) from "
