@@ -12,27 +12,33 @@
 <body class="stats">
 	<h3>Gamestudio stats</h3>
 	<ol>
-	<li>Players total: <b>${playersCount}</b></li>
+	<li>Registered players: <b>${playersCount}</b></li>
 	<li>Games total: <b>${gamesCount}</b></li>
-	<li>Ratings total: <b>${ratingsCount}</b></li>
+	<li>Ratings count: <b>${ratingsCount}</b></li>
 	<ul>
 		<c:forEach items="${gameCountRatings}" var="gameCR">
 			<li><b>${gameCR.game}</b> was rated <b>${gameCR.countRatings}</b>  times.</li>
 		</c:forEach>
 	</ul>
-	<li>Comments total: <b>${commentsCount}</b> </li>
+	<li>Comments count: <b>${commentsCount}</b> </li>
 	<ul>
 		<c:forEach items="${gameCountComments}" var="gameCC">
 			<li><b>${gameCC.game}</b>  was commented <b>${gameCC.countComments}</b>  times.</li>
 		</c:forEach>
 	</ul>
-	<li>Games played total: <b>${scoresCount}</b> </li>
+	<li>Gameplay total: <b>${scoresCount}</b> </li>
 	<ul>
 		<c:forEach items="${gameCountScores}" var="gameCS">
 			<li><b>${gameCS.game}</b> was played <b>${gameCS.countScores}</b>  times.</li>
 		</c:forEach>
 	</ul>
-	<li>Most active player: <b>${mostActivePlayer.game}</b></li> <!-- -->
+	<li>Activity for players: </li>
+	<ul>
+		<c:forEach items="${mostActivePlayer}" var="ma">
+			<li><b>${ma.game}</b> played <b>${ma.countScores}</b> times.</li>
+		</c:forEach>
+	</ul>
+	 <!-- -->
 	</ol>
 	
 	<br><p>to <a href="/ToBudeTazke/Gamestudio">Gamestudio</a></p>

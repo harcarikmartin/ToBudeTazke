@@ -72,7 +72,7 @@ public class Field implements Serializable {
 //			default:break;
 //			}
 //		}
-		move(15);
+		move(rowCount*columnCount-1);
 	}
 
 	private Position getPositionOf(int value) {

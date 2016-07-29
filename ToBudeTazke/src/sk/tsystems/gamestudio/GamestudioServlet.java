@@ -36,80 +36,63 @@ public class GamestudioServlet extends HttpServlet {
 				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 4);
-				forwardToList(request, response);
 			} else if(new PlayerJpa().isPasswordCorrect(request.getParameter("user"), request.getParameter("password"))){
 				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
 				session = request.getSession();
 				session.setAttribute("player", player);
-				forwardToList(request, response);
 			} else if(!new PlayerJpa().isPasswordCorrect(request.getParameter("user"), request.getParameter("password"))){
 				request.setAttribute("showLogin", 1);
 				request.setAttribute("login", 1);
 				request.setAttribute("error", 5);
-				forwardToList(request, response);
-			} else {
-				forwardToList(request, response);
 			}
 		} else if("registerMe".equals(action) && "user" != null && "password" != null && "passwordR" != null) {
 			if(! (request.getParameter("password")).equals(request.getParameter("passwordR"))) {
 				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 1);
-				forwardToList(request, response);
 			} else if (request.getParameter("password").length() < 6) {
 				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 2);
-				forwardToList(request, response);
 			} else if (new PlayerJpa().getId(request.getParameter("user")) != 0) {
 				request.setAttribute("showLogin", 1);
 				request.setAttribute("register", 1);
 				request.setAttribute("error", 3);
-				forwardToList(request, response);
 			} else {
 				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
 				session = request.getSession();
 				session.setAttribute("player", player);
-				forwardToList(request, response);
 			}
 		} else if("login".equals(action)) {
 			request.setAttribute("showLogin", 1);
 			request.setAttribute("login", 1);
-			forwardToList(request, response);
 		} else if("register".equals(action)) {
-			
 			request.setAttribute("register", 1);
-			forwardToList(request, response);
 		} else if("logout".equals(action)) {
 			session.setAttribute("player", null);
 			request.setAttribute("defaultLog", 1);
-			forwardToList(request, response);
-			request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 		} else if("play".equals(action) && request.getParameter("game") != null){
 			if(request.getParameter("player") == null) {
 				request.setAttribute("defaultLog", 1);
 			}
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
 			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
-			forwardToList(request, response);
 		} else if("insertRating".equals(action) && request.getParameter("rating") != null) {
 			request.setAttribute("name", player.getPlayerName());
 			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
 			new RatingJpa().addRating(new Rating(Integer.parseInt(request.getParameter("rating")), player, game1));
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
 			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
-			forwardToList(request, response);
 		} else if("insertComment".equals(action) && !request.getParameter("comment").isEmpty()) {
 			request.setAttribute("name", player.getPlayerName());
 			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
 			new CommentJpa().addComment(new Comment(request.getParameter("comment").trim(), player, game1));
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
 			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
-			forwardToList(request, response);
 		} else {
 			request.setAttribute("defaultLog", 1);
-            forwardToList(request, response);
 		}
+		forwardToList(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
