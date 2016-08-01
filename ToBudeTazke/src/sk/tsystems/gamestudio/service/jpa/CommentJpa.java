@@ -18,6 +18,14 @@ public class CommentJpa {
 		JpaHelper.commitTransaction();
 	}
 	
+	public List<Comment> findComments() {
+		List<Comment> comments = new ArrayList<>();
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("Select c from Comment c");
+		comments = query.getResultList();
+		return comments;
+	}
+	
 	public List<Comment> findCommentsForGame(Game game) {
 		List<Comment> comments = new ArrayList<>();
 		EntityManager em = JpaHelper.getEntityManager();

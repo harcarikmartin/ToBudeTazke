@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link rel='stylesheet' href='bootstrap/css/bootstrap.css' type='text/css'>
 <link rel="stylesheet" href="stylesheetBootstrap.css" type="text/css" media="screen">
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gamestudio</title>
 </head>
 <body>
@@ -14,24 +14,24 @@
   		<div class = "row">
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 			<div class="col-sm-8 col-md-6 col-lg-6">
-				<h1><a href="/ToBudeTazke/Gamestudio"><c:if test="${player.playerName != null}">${player.playerName}, w</c:if><c:if test="${player.playerName == null}">W</c:if>elcome to Gamestudio</a></h1></div>
+				<h1><a href="/GamestudioWeb/Gamestudio"><c:if test="${player.playerName != null}">${player.playerName}, w</c:if><c:if test="${player.playerName == null}">W</c:if>elcome to Gamestudio</a></h1></div>
 			<div class="col-sm-2 col-md-3 col-lg-3">
 				<c:if test="${player == null}">
 					<div class="inline">
 						<c:if test="${defaultLog == '1'}">
-						<form action="">
+						<form>
 							<input type="hidden" name="action" value="login">
 							<input type="submit" value="Login">
 						</form>
 						</c:if>
 						<c:if test="${showLogin == '1'}">
 						
-							<form>
+							<form action="Gamestudio" method="post">
 								<c:if test="${error == '1'}">
 									<p class="warning">Passwords must match!</p>
 								</c:if>
 								<c:if test="${error == '2'}">
-									<p class="warning">Password must be at least 6 digits long!</p>
+									<p class="warning">Password must be at least 8 digits long!</p>
 								</c:if>
 								<c:if test="${error == '3'}">
 									<p class="warning">Username already exists!</p>
@@ -43,15 +43,16 @@
 									<p class="warning">Wrong password!</p>
 								</c:if>
 								
-								<div>Username: <input type="text" name="user"></div>
-								<div>Password: <input type="password" name="password"></div>
+								<div>Username: <input type="text" name="user" autofocus></div>
+								<div>Password: <input type="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"></div>
 								<c:if test="${login != null}">
 								<input type="hidden" name="action" value="logMe">
 								<div><input type="submit" value="Login"></div>
 								</c:if>
 								<c:if test="${register != null}">
 								<input type="hidden" name="action" value="registerMe">
-								<div>Password: <input type="password" name="passwordR"></div>
+								<div>Password: <input type="password" name="passwordR" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"></div>
+								<div><p>* Password must be 8 or more characters long, contain at least 1 uppercase letter, 1 lowercase letter and 1 number.</p></div>
 								<div><input type="submit" value="Register"></div>
 								</c:if>
 							</form>
@@ -180,9 +181,12 @@
 	<div class="row">
 			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 			<div class="col-sm-6 col-md-4 col-lg-4">
-				<a href="/ToBudeTazke/Studiostats">Gamestudio statistics</a>
+				<a href="/GamestudioWeb/Studiostats">Gamestudio statistics</a>
 			</div>
 			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 		</div>
+		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>	
+	<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 </body>
 </html>

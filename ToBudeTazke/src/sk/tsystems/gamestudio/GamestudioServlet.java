@@ -31,46 +31,30 @@ public class GamestudioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		
-		if ("logMe".equals(action) && "user" != null && "password" != null) {
+		if("login".equals(action)) {
+			login(request);
+		} else if("register".equals(action)) {
+			register(request);
+		} else if ("logMe".equals(action) && "user" != null && "password" != null) {
 			if(new PlayerJpa().getId(request.getParameter("user")) == 0 ) {
-				request.setAttribute("showLogin", 1);
-				request.setAttribute("register", 1);
-				request.setAttribute("error", 4);
+				doRegister(request);
 			} else if(new PlayerJpa().isPasswordCorrect(request.getParameter("user"), request.getParameter("password"))){
-				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
-				session = request.getSession();
-				session.setAttribute("player", player);
+				doLogin(request);
 			} else if(!new PlayerJpa().isPasswordCorrect(request.getParameter("user"), request.getParameter("password"))){
-				request.setAttribute("showLogin", 1);
-				request.setAttribute("login", 1);
-				request.setAttribute("error", 5);
+				incorrectPassword(request);
 			}
 		} else if("registerMe".equals(action) && "user" != null && "password" != null && "passwordR" != null) {
 			if(! (request.getParameter("password")).equals(request.getParameter("passwordR"))) {
-				request.setAttribute("showLogin", 1);
-				request.setAttribute("register", 1);
-				request.setAttribute("error", 1);
-			} else if (request.getParameter("password").length() < 6) {
-				request.setAttribute("showLogin", 1);
-				request.setAttribute("register", 1);
-				request.setAttribute("error", 2);
+				matchPasswords(request);
+//			} else if (request.getParameter("password").length() < 8) {
+//				lenghtenPassword(request);
 			} else if (new PlayerJpa().getId(request.getParameter("user")) != 0) {
-				request.setAttribute("showLogin", 1);
-				request.setAttribute("register", 1);
-				request.setAttribute("error", 3);
+				existingUser(request);
 			} else {
-				player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
-				session = request.getSession();
-				session.setAttribute("player", player);
+				doLogin(request);
 			}
-		} else if("login".equals(action)) {
-			request.setAttribute("showLogin", 1);
-			request.setAttribute("login", 1);
-		} else if("register".equals(action)) {
-			request.setAttribute("register", 1);
 		} else if("logout".equals(action)) {
-			session.setAttribute("player", null);
-			request.setAttribute("defaultLog", 1);
+			logout(request);
 		} else if("play".equals(action) && request.getParameter("game") != null){
 			if(request.getParameter("player") == null) {
 				request.setAttribute("defaultLog", 1);
@@ -78,17 +62,9 @@ public class GamestudioServlet extends HttpServlet {
 			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
 			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
 		} else if("insertRating".equals(action) && request.getParameter("rating") != null) {
-			request.setAttribute("name", player.getPlayerName());
-			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
-			new RatingJpa().addRating(new Rating(Integer.parseInt(request.getParameter("rating")), player, game1));
-			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
-			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
+			insertRating(request);
 		} else if("insertComment".equals(action) && !request.getParameter("comment").isEmpty()) {
-			request.setAttribute("name", player.getPlayerName());
-			Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
-			new CommentJpa().addComment(new Comment(request.getParameter("comment").trim(), player, game1));
-			request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
-			request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
+			insertComment(request);
 		} else {
 			request.setAttribute("defaultLog", 1);
 		}
@@ -97,6 +73,75 @@ public class GamestudioServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	
+	
+	private Game prepareEntities(HttpServletRequest request) {
+		request.setAttribute("name", player.getPlayerName());
+		Game game1 = new GameJpa().setPresentGame(request.getParameter("game"));
+		request.setAttribute("comments", new CommentJpa().findCommentsForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
+		request.setAttribute("scores", new ScoreJpa().findTenBestScoresForGame(new GameJpa().setPresentGame(request.getParameter("game"))));
+		return game1;
+	}
+	
+	private void insertComment(HttpServletRequest request) {
+		Game game1 = prepareEntities(request);
+		new CommentJpa().addComment(new Comment(request.getParameter("comment").trim(), player, game1));
+	}
+
+	private void insertRating(HttpServletRequest request) {
+		Game game1 = prepareEntities(request);
+		new RatingJpa().addRating(new Rating(Integer.parseInt(request.getParameter("rating")), player, game1));
+	}
+
+	private void login(HttpServletRequest request) {
+		request.setAttribute("showLogin", 1);
+		request.setAttribute("login", 1);
+	}
+
+	private void register(HttpServletRequest request) {
+		request.setAttribute("register", 1);
+	}
+
+	private void logout(HttpServletRequest request) {
+		session.setAttribute("player", null);
+		request.setAttribute("defaultLog", 1);
+	}
+
+	private void existingUser(HttpServletRequest request) {
+		request.setAttribute("showLogin", 1);
+		register(request);
+		request.setAttribute("error", 3);
+	}
+
+	private void lenghtenPassword(HttpServletRequest request) {
+		request.setAttribute("showLogin", 1);
+		register(request);
+		request.setAttribute("error", 2);
+	}
+
+	private void matchPasswords(HttpServletRequest request) {
+		request.setAttribute("showLogin", 1);
+		register(request);
+		request.setAttribute("error", 1);
+	}
+
+	private void doLogin(HttpServletRequest request) {
+		player = new PlayerJpa().setPresentPlayer(request.getParameter("user"), request.getParameter("password"));
+		session = request.getSession();
+		session.setAttribute("player", player);
+	}
+
+	private void incorrectPassword(HttpServletRequest request) {
+		login(request);
+		request.setAttribute("error", 5);
+	}
+
+	private void doRegister(HttpServletRequest request) {
+		request.setAttribute("showLogin", 1);
+		register(request);
+		request.setAttribute("error", 4);
 	}
 	
 	private void serviceUpdate(HttpServletRequest request) {
@@ -109,9 +154,10 @@ public class GamestudioServlet extends HttpServlet {
 	
 	private void forwardToList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		new GameJpa().setPresentGame("flipit");
+//		new GameJpa().setPresentGame("minesweeper");
 //		new GameJpa().setPresentGame("gtn");
 //		new GameJpa().setPresentGame("stones");
+//		new GameJpa().setPresentGame("flipit");
 //		new PlayerJpa().setPresentPlayer("root", "root");
 //		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("flipit")));
 //		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("gtn")));

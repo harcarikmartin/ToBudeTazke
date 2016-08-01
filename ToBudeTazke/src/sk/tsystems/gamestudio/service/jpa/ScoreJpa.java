@@ -37,4 +37,12 @@ public class ScoreJpa {
 			return Math.toIntExact((long) query.getResultList().get(0));
 		}
 	}
+
+	public List<Score> findScores() {
+		List<Score> scores = new ArrayList<>();
+		EntityManager em = JpaHelper.getEntityManager();
+		Query query = em.createQuery("Select s from Score s");
+		scores = query.getResultList();
+		return scores;
+	}
 }
