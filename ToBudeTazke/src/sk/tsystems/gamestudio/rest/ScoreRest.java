@@ -1,6 +1,7 @@
 package sk.tsystems.gamestudio.rest;
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -8,8 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+
 import sk.tsystems.gamestudio.entity.jpa.Score;
-import sk.tsystems.gamestudio.service.jpa.GameJpa;
 import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 
 @Path("/scores")
