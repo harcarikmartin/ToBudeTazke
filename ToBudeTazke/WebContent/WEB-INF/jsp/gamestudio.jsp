@@ -14,7 +14,7 @@
   		<div class = "row">
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 			<div class="col-sm-8 col-md-6 col-lg-6">
-				<h1><a href="/GamestudioWeb/Gamestudio"><c:if test="${player.playerName != null}">${player.playerName}, w</c:if><c:if test="${player.playerName == null}">W</c:if>elcome to Gamestudio</a></h1></div>
+				<h1><a href="/ToBudeTazke/Gamestudio"><c:if test="${player.playerName != null}">${player.playerName}, w</c:if><c:if test="${player.playerName == null}">W</c:if>elcome to Gamestudio</a></h1></div>
 			<div class="col-sm-2 col-md-3 col-lg-3">
 				<c:if test="${player == null}">
 					<div class="inline">
@@ -181,7 +181,7 @@
 	<div class="row">
 			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 			<div class="col-sm-6 col-md-4 col-lg-4">
-				<a href="/GamestudioWeb/Studiostats">Gamestudio statistics</a>
+				<a href="/ToBudeTazke/Studiostats">Gamestudio statistics</a>
 			</div>
 			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 		</div>

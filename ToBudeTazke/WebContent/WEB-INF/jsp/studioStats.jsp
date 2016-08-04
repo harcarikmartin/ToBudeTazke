@@ -42,7 +42,7 @@
 	 <!-- -->
 	</ol>
 	
-	<br><p>to <a href="/GamestudioWeb/Gamestudio">Gamestudio</a></p>
+	<br><p>to <a href="/ToBudeTazke/Gamestudio">Gamestudio</a></p>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>	
 	<script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
