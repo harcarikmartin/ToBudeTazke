@@ -58,6 +58,18 @@ public class FlipItServlet extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		
+		if (fieldFlip.isSolved()) {
+			out.println("<h1>You win!</h1>");
+			int score = 10 * fieldFlip.getColumnCount()*fieldFlip.getRowCount() - numberOfMoves;
+			if(score < 0) {
+				score = 0;
+			}
+			if(session.getAttribute("player") != null) {
+				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("flipit")));
+			}
+			out.printf("<p>Your final score is %5d.</p>", score);
+		}
+		
 		out.println("<table>");
 		for (int row = 0; row < fieldFlip.getRowCount(); row++) {
 			out.println("<tr>");
@@ -82,19 +94,6 @@ public class FlipItServlet extends HttpServlet {
 					+ "&nbsp;Medium <input type='radio' name='level' value='medium' />"
 				+ "</form>"
 				+ "</div>");
-		
-
-		if (fieldFlip.isSolved()) {
-			out.println("<h1>You win!</h1>");
-			int score = 10 * fieldFlip.getColumnCount()*fieldFlip.getRowCount() - numberOfMoves;
-			if(score < 0) {
-				score = 0;
-			}
-			if(session.getAttribute("player") != null) {
-				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("flipit")));
-			}
-			out.printf("<p>Your final score is %5d.</p>", score);
-		}
 	}
 
 	/**

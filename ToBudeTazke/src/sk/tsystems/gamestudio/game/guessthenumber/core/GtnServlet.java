@@ -39,28 +39,6 @@ public class GtnServlet extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		
-		out.println("<form method='get'>");
-		out.println("<table  class='game'>");
-		int mod = gtn.getInterval()%10;
-		for(int i = 0; i < gtn.getInterval()/10; i++) {
-			out.println("<tr>");
-			for(int j = 1; j <= 10; j++) {
-				out.printf("<td><a href='?action=play&game=gtn&gtn=%d'>%3d</a></td>", (i * 10 + j), (i * 10 + j));
-				}
-			out.println("</tr>");
-		}
-		if(mod != 0) {
-			out.println("<tr>");
-			for(int i = 1; i <= mod; i++) {
-				out.printf("<td><a href='?action=play&game=gtn&gtn=%d'>%3d</a></td>", (gtn.getInterval() - mod + i), (gtn.getInterval() - mod + i));
-			}
-			out.println("</tr>");
-		}
-		out.println("</table>");
-		
-		out.println("</form>");
-		out.println("<br>");
-		
 		try {
 			int guess = Integer.parseInt(request.getParameter("gtn"));
 			if(guess > gtn.getNumberToGuess()) {
@@ -85,6 +63,29 @@ public class GtnServlet extends HttpServlet {
 		} catch (Exception e){	
 			System.out.println(e.getMessage());
 		}
+		
+		out.println("<form method='get'>");
+		out.println("<table  class='game'>");
+		int mod = gtn.getInterval()%10;
+		for(int i = 0; i < gtn.getInterval()/10; i++) {
+			out.println("<tr>");
+			for(int j = 1; j <= 10; j++) {
+				out.printf("<td><a href='?action=play&game=gtn&gtn=%d'>%3d</a></td>", (i * 10 + j), (i * 10 + j));
+				}
+			out.println("</tr>");
+		}
+		if(mod != 0) {
+			out.println("<tr>");
+			for(int i = 1; i <= mod; i++) {
+				out.printf("<td><a href='?action=play&game=gtn&gtn=%d'>%3d</a></td>", (gtn.getInterval() - mod + i), (gtn.getInterval() - mod + i));
+			}
+			out.println("</tr>");
+		}
+		out.println("</table>");
+		
+		out.println("</form>");
+		out.println("<br>");
+		
 		out.println("<div class='newGameButton'><form action=''><input type='hidden' name='action' value='play' /><input type='hidden' name='game' value='gtn' /><input type='hidden' name='newGame' value='newgame' /><input type='submit' value='New Game' /></form></div>");
 		
 	}

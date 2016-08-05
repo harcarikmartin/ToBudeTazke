@@ -78,6 +78,18 @@ public class StonesServlet extends HttpServlet {
 			}
 		}
 		
+		if (fieldStones.isSolved()) {
+			out.println("<h1>You win!</h1>");
+			int score = 10 * fieldStones.getColumnCount()*fieldStones.getRowCount() - numberOfMoves;
+			if(score < 0) {
+				score = 0;
+			}
+			if(session.getAttribute("player") != null) {
+				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("stones")));
+			}
+			out.printf("<p>Your final score is %5d.</p>", score);
+		}
+		
 		out.println("<table>");
 		for (int row = 0; row < fieldStones.getRowCount(); row++) {
 			out.println("<tr>");
@@ -108,19 +120,6 @@ public class StonesServlet extends HttpServlet {
 					+ "&nbsp;Medium <input type='radio' name='level' value='medium' />"
 				+ "</form>"
 				+ "</div>");
-		
-
-		if (fieldStones.isSolved()) {
-			out.println("<h1>You win!</h1>");
-			int score = 10 * fieldStones.getColumnCount()*fieldStones.getRowCount() - numberOfMoves;
-			if(score < 0) {
-				score = 0;
-			}
-			if(session.getAttribute("player") != null) {
-				new ScoreJpa().addScore(new Score(score, (Player) session.getAttribute("player"), new GameJpa().setPresentGame("stones")));
-			}
-			out.printf("<p>Your final score is %5d.</p>", score);
-		}
 	}
 
 	/**
