@@ -14,19 +14,19 @@
   		<div class = "row">
 			<div class="col-sm-2 col-md-3 col-lg-3"></div>
 			<div class="col-sm-8 col-md-6 col-lg-6">
-				<h1><a href="/ToBudeTazke/Gamestudio"><c:if test="${player.playerName != null}">${player.playerName}, w</c:if><c:if test="${player.playerName == null}">W</c:if>elcome to Gamestudio</a></h1></div>
+				<h1><a href="/GamestudioWeb"><c:if test="${player.playerName != null}">${player.playerName}, w</c:if><c:if test="${player.playerName == null}">W</c:if>elcome to Gamestudio</a></h1></div>
 			<div class="col-sm-2 col-md-3 col-lg-3">
 				<c:if test="${player == null}">
 					<div class="inline">
 						<c:if test="${defaultLog == '1'}">
-						<form>
+						<form method="post">
 							<input type="hidden" name="action" value="login">
 							<input type="submit" value="Login">
 						</form>
 						</c:if>
 						<c:if test="${showLogin == '1'}">
 						
-							<form action="Gamestudio" method="post">
+							<form action="" method="post">
 								<c:if test="${error == '1'}">
 									<p class="warning">Passwords must match!</p>
 								</c:if>
@@ -98,7 +98,9 @@
 			<div class="col-sm-5 col-md-5 col-lg-5">
 				<p class=caps><c:if test="${gamePlay == 'gtn'}">guess my number</c:if></p>
 				<p class=caps><c:if test="${gamePlay != 'gtn'}">${gamePlay}</c:if></p>
-				<jsp:include page="/${gamePlay}"></jsp:include>
+				<c:if test="${gamePlay != null}">
+					<jsp:include page="/${gamePlay}"></jsp:include>
+				</c:if>
 			</div>
 			<div class="col-sm-6 col-md-6 col-lg-6">
 				<div class="inline2">
@@ -181,7 +183,7 @@
 	<div class="row">
 			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 			<div class="col-sm-6 col-md-4 col-lg-4">
-				<a href="/ToBudeTazke/Studiostats">Gamestudio statistics</a>
+				<a href="/GamestudioWeb/Studiostats">Gamestudio statistics</a>
 			</div>
 			<div class="col-sm-3 col-md-4 col-lg-4"></div>
 		</div>

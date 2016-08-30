@@ -19,7 +19,7 @@ import sk.tsystems.gamestudio.service.jpa.PlayerJpa;
 import sk.tsystems.gamestudio.service.jpa.RatingJpa;
 import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 
-@WebServlet("/Gamestudio")
+@WebServlet("")
 public class GamestudioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     List<Game> games = new GameJpa().getGames();
