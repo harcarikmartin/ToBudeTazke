@@ -22,7 +22,7 @@ import sk.tsystems.gamestudio.service.jpa.ScoreJpa;
 @WebServlet("")
 public class GamestudioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    List<Game> games = new GameJpa().getGames();
+	List<Game> games = new GameJpa().getGames();
     List<Integer> avgRatings = new ArrayList<>();
     List<Integer> ratingsCounts = new ArrayList<>();
     Player player;
@@ -30,6 +30,22 @@ public class GamestudioServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		
+		if(new GameJpa().getGames().isEmpty()) {
+			new GameJpa().setPresentGame("minesweeper");
+			new GameJpa().setPresentGame("gtn");
+			new GameJpa().setPresentGame("stones");
+			new GameJpa().setPresentGame("flipit");
+			games = new GameJpa().getGames();
+		}
+		
+		if(new PlayerJpa().getPlayersCount() == 0) {
+			new PlayerJpa().setPresentPlayer("root", "root");
+			new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("flipit")));
+			new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("minesweeper")));
+			new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("gtn")));
+			new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("stones")));
+		}
 		
 		if("login".equals(action)) {
 			login(request);
@@ -154,14 +170,6 @@ public class GamestudioServlet extends HttpServlet {
 	
 	private void forwardToList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		new GameJpa().setPresentGame("minesweeper");
-//		new GameJpa().setPresentGame("gtn");
-//		new GameJpa().setPresentGame("stones");
-//		new GameJpa().setPresentGame("flipit");
-//		new PlayerJpa().setPresentPlayer("root", "root");
-//		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("flipit")));
-//		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("gtn")));
-//		new RatingJpa().addRating(new Rating(1, new PlayerJpa().setPresentPlayer("root", "root"), new GameJpa().setPresentGame("stones")));
 		serviceUpdate(request);
 		request.getRequestDispatcher("/WEB-INF/jsp/gamestudio.jsp").forward(request, response);
 	}

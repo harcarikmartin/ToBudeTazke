@@ -31,7 +31,9 @@ public class GameJpa {
 		EntityManager em = JpaHelper.getEntityManager();
 		Query query = em.createQuery("select g from Game g");
 		List<Game> games = new ArrayList<>();
-		games = query.getResultList();
+		if(query.getResultList() != null) {
+			games = query.getResultList();
+		}
 		return games;
 	
 	}
