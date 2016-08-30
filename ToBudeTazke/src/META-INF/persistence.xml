@@ -19,8 +19,8 @@
             
             
             <property name="hibernate.connection.url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
-            <property name="hibernate.connection.username" value="Gamestudio"/>
-            <property name="hibernate.connection.password" value="Gamestudio"/>
+            <property name="hibernate.connection.username" value="GS_Harcarik"/>
+            <property name="hibernate.connection.password" value="GS_Harcarik"/>
             
             <!--
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/gamecenter"/>
@@ -32,7 +32,7 @@
             <!--<property name="hibernate.connection.charSet" value="UTF-8"/>-->
 
             <!-- value="create" to build a new database on each run; value="update" to modify an existing database; value="create-drop" means the same as "create" but also drops tables when Hibernate closes; value="validate" makes no changes to the database -->
-            <!-- <property name="hibernate.hbm2ddl.auto" value="create-drop"/>  -->
+            <!--  --><property name="hibernate.hbm2ddl.auto" value="create"/> 
 
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
